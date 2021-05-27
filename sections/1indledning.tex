@@ -31,7 +31,46 @@ Som anden del af vores projekt, har vi den faktiske løsning af projektets probl
 Fordelen med at have delt vores projekt op i to halvdele, har været at vi som gruppe i første halvdel har kunne skabe os en forståelse for hvad problemet er, hvordan vi vil gribe casen an og hvordan vi som gruppe vil løse problemet på den bedst mulige måde. Dertil har vi så efterfølgende, i anden del af projektet, kunne fokusere på at følge vores planer og benytte vores forarbejde, til at udvikle det bedst mulige softwaresystem, og besvare problem formuleringen uden problemer.
 
 \subsection{Problemanalyse}
-For at gå i dybden med den stillede case fra TV2, og dermed vurdere hvad det essentielle problem er, samt skabe os en problemformulering at arbejde ud fra, vil vi først analysere casen, med fokus på at identificere, hvilke mulige problemer der er. 
+For at gå i dybden med den stillede case fra TV2, og dermed vurdere hvad det essentielle problem er, samt skabe os en problemformulering at arbejde ud fra, har vi først analyseret casen, med fokus på at identificere, hvilke mulige problemer der er. Den case som TV2 har lavet, er relativt udpenslet, og der er ikke meget tvivl om, at det essentielle problem for dem er, at det er forbesværligt at håndtere krediteringer til produktioner på den måde, som de gør i øjeblikket, nemlig at synliggøre krediteringer i 30 sekunder efter endt program i form af rulletekster. Denne nuværende løsning er et problem, da 30 sekunder ikke er nok til at kunne vise alle medvirkende i nogle udsendelser. \cite{url_case} Der er også flere regler, som skal overholdes når der vises rulletekster, som f.eks:
+\begin{itemize}
+    \item Ophavsretsloven
+    \item TV 2s overenskomster
+    \item Kontrakter for ophavsmænd og udøvende kunstnere
+    \item Almindelig god skik
+\end{itemize}
+ud fra de informationer vi har erhvervet os fra casen omkring TV2s regler for hvad og hvordan der skal angives krediteringer, har vi skabt et problem træ, der skal visualisere hvordan vi ser dette problem. Dette problemtræ ses i figur \ref{fig:problemtræ}. Kigger man på problemtræet, vil man kunne se, at de 30 sekunder, som der maksimalt må vises rulletekster i, skaber nogle problemer for TV2: 
 
+ \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[grow'=up]
+        \tikzset{level distance=42pt}
+        \Tree [ .{30 sekunder til rulletekster} 
+                [.{Prioritering af krediteringer}
+                    [.{Inkorrekt kreditering}
+                        [.{Brud på ophavsretslov} 
+                            [.{Brud på overenskomster\\og andre aftaler} ] ]
+                    ]
+                ]
+                [.{Tab af skærmtid}
+                    [.{Mindre reklamer} 
+                        {Dårligere omsætning\\(tab på 60 mio. kr.)} 
+                    ] 
+                    [.{Mindre programtid} 
+                        {Dårligere seeroplevelse} 
+                    ] 
+                ]
+            ] 
+        \tikzset{grow'=down}
+        \Tree [ .{\\} 
+                [.{Krediteringer vises på TV-skærm} 
+                    [.{Tilgængelighed for alle} ]
+                    [.{Der findes ikke nogen online\\alternativ til kreditering\\af danske produktioner} ]
+                ]
+            ]
+              
+    \end{tikzpicture}
+    \caption{Problemtræ omkring de informationer, der er givet i casen.}
+    \label{fig:problemtræ}
+\end{figure}
 \subsection{Problemformulering}
 \subsection{Afgrænsninger}
