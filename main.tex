@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{lipsum}
+\usepackage{dirtree}
+\usepackage{url}
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{booktabs}
+\usepackage{listingsutf8}
+\usepackage{enumitem}
+\usepackage[left=1.5in, right=1.5in, top=2in, top=1in]{geometry}
+%\usepackage[a4paper, top = 1in, bottom = 1in, left=1.5in,right=1.5in]{geometry}
+%\usepackage[backend=biber, citestyle=ieee]{biblatex}
+\usepackage{appendix}
+\usepackage{comment}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{tikz-uml}
+\usepackage{longtable}
+\usepackage{makecell}
+\usepackage{multicol}
+\tikzset{baseline,every tree node/.style={align=center,anchor=north}}
+
+
+
+\title{2. semesterprojekt}
+\author{Gruppe 4}
+\date{April 2021}
+
+%\renewcommand{\baselinestretch}{1.5}
+\pagenumbering{roman}
+\begin{document}
+\renewcommand{\refname}{Referenceliste}
+\renewcommand{\figurename}{Figur}
+\renewcommand{\tablename}{Tabel}
+\pagenumbering{roman} % Start roman numbering
+\renewcommand{\thesection}{\Roman{section}}
+
+\input{sections/Titlepage}
+\input{sections/Titelblad}
+\input{sections/Resume}
+\input{sections/Forord}
+
+
+
+%Indholdsfortegnelse, der kun viser section og subsection
+\clearpage
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{Indholdsfortegnelse}
+\tableofcontents
+\clearpage
+
+\input{sections/Læsevejledning}
+\input{sections/Redaktionelt}
+
+
+
+
+\setcounter{section}{0}
+\renewcommand{\thesection}{\arabic{section}}
+\pagenumbering{arabic}
+
+
+
+\input{sections/1indledning}
+\input{sections/2fagligtvidensgrundlag}
+\input{sections/3metoder_og_planlægning}
+\input{sections/4hovedtekst}
+\input{sections/5diskussion}
+\input{sections/6konklusion}
+\input{sections/7perspektivering}
+\input{sections/8procesevaluering}
+\clearpage
+\bibliographystyle{ieeetr}
+\bibliography{Bibliography.bib}
+\clearpage
+\appendix
+
+
+\input{Bilag/A_Kildekode}
+\input{Bilag/B_Brugervejledning}
+\input{Bilag/C_Samarbejdsaftale}
+\input{Bilag/D_Vejlederkontrakt}
+\input{Bilag/E_Projektlog}
+\input{Bilag/F_Rapportkontrol}
+\input{Bilag/G_Inceptionsdokument}
+
+\end{document}
