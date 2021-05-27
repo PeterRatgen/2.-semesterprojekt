@@ -1,0 +1,87 @@
+\subsection{Overordnet krav}
+De overordnede krav er udformet på baggrund af den stillede case fra TV 2, samt et opfølgende interview med Morten Lehm, som er udvikler hos TV 2. De overordnede krav blev sat under arbejdet i inceptionsfasen, men er sidenhen tilpasset og revideret, derfor indholder dette afsnit en opdaterede udformning af de overordnede krav, samt prioritering. Disse funktionelle krav afspejler brugmønstrende, hvilket de derfor skal forstås som brugmønstre lige vel som krav.
+
+\begin{longtable}{|p{10mm}|p{40mm}|p{70mm}|p{20mm}|}
+    \hline
+    \textbf{ID} & \textbf{Funktionelle Krav} & \textbf{Beskrivelse} & \textbf{MoSCoW} \\
+    \hline
+    F/B 01 & Registrering af kreditering & Det skal være muligt for producere og firmaer at tilføje programmer og kreditere medvirkende hertil. & Must \\
+    \hline
+    F/B 02 & Bruger system & Prototypen af forbrugersystemet skal gøre det muligt for forbrugeren at få informationer om krediteringer og produktioner. & Must \\
+    \hline
+    F/B 03 & Søgning på kreditering & Det skal være muligt at slå en person op og derved se samtlige programmer en person har været med i. & Must \\
+    \hline
+    F/B 04 & Oprettelse af personer og programmer & Der skal implementeres en skabelon, som skal udfyldes, når der skal oprettes en person eller et program. & Must \\
+    \hline
+    F/B 05 & Rediger krediteringer & Det skal være muligt at redigere i eksisterende krediteringer. & Must \\
+    \hline
+    F/B 06 & Anvendelse af data & Det bør være muligt for TV 2 at eksportere en specifik  mængde af data i forskellige formater som XML og CSV, så TV 2 nemt kan anvende dette data på anden vis. & Should \\
+    \hline
+    F/B 07 & Nem tilgang til kreditering & Efter endt show vises en kode på skærmen, som kan slås op i programmet og krediteringene til det pågældende program vises & Should \\
+    \hline
+    F/B 08 & Mulighed for at skelne mellem personer og firmaer & Hver person og firma har sit eget unikke ID, hvis det er for svært at skelne på ID, kan der forsøges at hente yderligere oplysninger som f.eks. telefonnummer, kaldenavn, alder. & Should \\
+    \hline
+    F/B 09 & Fleksibel søgning & Der behøves ikke vælges, hvad en bruger søger efter, men programmet kan matche inputtet med alle mulige entries (uanset om det er program eller person). Brugeren skal også have mulighed for eksplicit at vælge hvilken type (person, program osv.) & Should \\
+    \hline
+    F/B 10 & Adgangskontrol & Der skal implementeres en form for adgangskontrol, for hvem der skal have adgang til redigering, oprette og slette data. & Should \\
+    \hline
+    F/B 11 & Rapportering & Det bør være muligt for TV 2 at eksportere en specifik  mængde af data i forskellige formater som XML og CSV, så TV 2 nemt kan anvende dette data på anden vis. & Could \\
+    \hline
+    F/B 12 & Valg af sprog & Det bør være muligt at skifte mellem sprog, som minimum dansk og engelsk. & Could \\\hline
+    F/B 13 & Notifikationer & Hver gang der sker noget i databasen skal TV 2's medarbejder modtage en notifikation med ændringer. & Would \\
+    \hline
+    \caption{Funktionelle krav - Revideret prioriteringer i MoSCoW}
+    \label{tab:FuncMoscow}
+\end{longtable}
+
+Ovenfor i tabel \ref{tab:FuncMoscow} ses den endelige prioritering af krav. Siden inceptionsfasen er "Adgangskontrol" blevet nedprioriteret, da arbejdet med andre funktioner synes mere vigtig og giver større værdi for produktet, dog er en alternativ login funktion implementeret for at skelne mellem aktørenes rettigheder. Derudover er kravet om redigering tilføjet som et "Must" krav.
+
+\subsubsection{Brugsmønster diagram}
+Ud fra kravene/brugsmønstrende opstilles et brugsmønster diagram, som viser interaktionenerne mellem aktører og brugsmønstre. Da det ikke er alle krav/brugsmønstre, som er implementeret i produktet, ses nedenfor et brugsmønster diagram (Figur \ref{fig:brugsmønster}) over de opnåede funktioner. 
+
+\begin{figure}[H]
+    \centering
+\includegraphics[scale = 0.7]{images/Opdateret_brugmønsterdiagram.png}
+    \caption{Opdateret brugsmønster diagram}
+    \label{fig:brugsmønster}
+\end{figure}
+
+Ovenfor ses et opdateret brugsmønster diagram i Figur \ref{fig:brugsmønster}, med en række aktører. Aktørene er her opstillet i hierarkisk rækkefølge fra den almene bruger til systemadministratoren, dvs. at alle aktører har de samme rettigheder som den overstående. I dette diagram findes enkelte "overflødige" aktører, dette skyldes at der er tiltænkt bestemte rettigheder til disse aktører, som er blevet nedprioriteret og ikke er implementeret i denne udgave. Disse overflødige aktører er listet op i diagrammet da de stadig er en del af de alternativ login system, og derfor stadig eksistere i programmet. \\
+
+\subsubsection{Supplerende krav}
+Ud over de funktionelle krav og brugsmøsntrende har gruppen udarbejdet end række supplerende krav, som er med til at udforme de ikke-funktionelle krav. Disse krav er udformet på baggrund af casen stillet af TV 2, og enkelte krav til design, som er stillet af SDU. 
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{40mm}|p{100mm}|}
+\hline
+
+    \multicolumn{2}{|c|}{\textbf{Opnået}} \\ \hline
+    
+    3-lags arkitektur & Det ønskes at programmet følger en 3-lags arkitektur.
+\\ \hline
+    Oppetid &  TV 2 har et krav om at systemet har en oppetid på 99,7 - 99,8\% .
+\\ \hline
+    Svartid & TV 2 Ønsker at svartiden på systemet skal være så lav som muligt.
+\\ \hline
+
+    \multicolumn{2}{|c|}{\textbf{Delvist opnået}} \\ \hline
+    
+
+    Sikkerhed & TV 2 stiller et meget stærkt krav om, at der er styr på, at al data i systemet er korrekt, da data skal anvendes for at sikre, at krediterede personer får den betaling, de har ret til.
+\\ \hline
+
+    \multicolumn{2}{|c|} {\textbf{Ikke opnået}} \\ \hline
+
+    Unikke personer & Der er et krav om, at man skal kunne differentiere personer med f.eks. identiske navne.
+\\ \hline
+    Integration med andre systemer & TV 2 har et ønske om at programmet skal kunne integreres med en række af de systemer, de anvender i forvejen. Eksempler kunne være EPG og login-systemet til TV 2 Play.
+\\ \hline
+
+\end{tabular}
+    \caption{Supplerende krav}
+    \label{tab:Supplerende_krav}
+\end{table}
+
+I Tabel \ref{tab:Supplerende_krav} overfor er det supplerende krav, som blev udformet tilbage i inceptionsfasen. Dog er ikke alle krav er opnået i den forventede udstrækning. Kravet om sikkerhed er placeret under delvist opnået, da funktionen om at krediteringer indtastet af producenter, skal godkendes af en TV 2 moderater er implementeret. Dog er et aktiv login system ikke implementeret, og derfor vurderes det at kravet ikke er opfyldt fuldt ud.
+
