@@ -1,3 +1,69 @@
 \subsection{Detaljeret krav}
 
-d
+Ud fra de overordnede krav er enkelte krav/brugsmøsntre udvalgt til en mere detaljeret beskrivelse. Brugsmønstrene er udvalgt på baggrund af vigtigheden for projektet, derfor er det brugsmøsntrene "registrering af kreditering" og "søgning på kreditering", der er medtaget i rapporten. 
+
+\begin{longtable}{|p{150mm}|}
+\hline
+\textbf{Brugsmønster:} Registrering af kreditering.           \\ \hline
+\textbf{ID:} B01                                     \\ \hline
+\textbf{Primære aktører:} Producenter og firmaer (Opretter)       \\ \hline
+\textbf{Sekundære aktører:}      \\ \hline
+\textbf{Kort beskrivelse:} Producent for showet eller en SoMe-ansvarlig fra et firma kan logge ind på systemet og oprette showet, ved at udfylde en skabelon.          \\ \hline
+\textbf{Præconditioner} Man skal være logget ind som enten producent eller firma            \\ \hline
+\textbf{Hovedhændelsesforløb}
+    \begin{enumerate}
+        \setlength{\itemsep}{0pt}
+        \item Producent eller firma logger ind på systemet.
+        \item Opretteren navigerer til siden med oprettelse af show.
+        \item Opretteren udfylder skabelon til oprettelse af show som indbærer:
+        \begin{itemize}
+            \setlength{\itemsep}{0pt}
+            \item Navn på show og evt. serie ID.
+            \item Dato for første udsendelse.
+            \item Navn på producent.
+            \item kategori.
+            \item mm.
+        \end{itemize}
+        \item Krediteret personer tilføjes til show.
+        \begin{itemize}
+            \setlength{\itemsep}{0pt}
+            \item Opretteren skal kunne hente personer, som eksisterer i databasen og tilføje dem til showet.
+            \item Ved tilføjelse af ikke eksisterende person: se alternativt hændelsesforløb.
+        \end{itemize}
+        \item Den udfyldte skabelon registreres og sendes til databasen som "ikke godkendt", hvorefter en TV 2 moderator kan tilgå krediteringen og godkende den.
+    \end{enumerate}  \\ \hline
+\textbf{Postkonditioner:} Showet står som "ikke godkendt" indtil en ansat fra TV 2 har kvalitetstjekket indholdet og godkendt det. \\\hline
+\textbf{Alternative hændelsesforløb:} Skridt 4. Ved tilføjelse af personer, der ikke allerede eksisterer i databasen, får opretteren mulighed for tilføjelse af den nye person ved et pop-up vindue, for yderligere specificering se B02 - Oprettelse af person. \\\hline
+    \caption{Detaljeret brugsmønster over B03}
+    \label{tab:Detaljeret_brugsmønsterdiagram_B03}
+\end{longtable}
+
+\begin{longtable}{|p{150mm}|}
+\hline
+\textbf{Brugsmønster:} Søgning på kreditering\\ \hline
+\textbf{ID:} B03         \\ \hline
+\textbf{Primære aktører:} Bruger          \\ \hline
+\textbf{Sekundære aktører:}        \\ \hline
+\textbf{Kort beskrivelse:} Brugeren bliver mødt af et søgefelt, hvor de indtaster deres ønskede søgekriterier og vælger herefter hvilken kreditering, de ønsker at få vist         \\ \hline
+\textbf{Præconditioner:} Brugeren har et søgekriterie i form af navn på show/person eller ID        \\ \hline
+\textbf{Hovedhændelsesforløb:}
+    \begin{enumerate}
+    \setlength{\itemsep}{0pt}
+        \item Brugeren bliver mødt af et tomt søgefelt
+        \item Brugeren indtaster et søgekriterie i form af navn på show/person eller ID
+        \item Brugeren søger med de givne søgekriterier
+        \item Brugeren får vist en liste af krediteringer, der matcher søgekriterierne
+        \item Brugeren vælger her den ønskede kreditering 
+        \item Brugeren får nu vist den specifikke kreditering som de har valgt
+    \end{enumerate}
+\\ \hline
+\textbf{Postkonditioner:} Logiklaget har leveret informationer til brugeren, og brugeren har adgang til de krediteringsinformationer de ønsker         \\ \hline
+\textbf{Alternative hændelsesforløb:}
+\begin{itemize}
+    \item Skridt 5: Hvis brugeren ikke kan finde den ønskede kreditering kan de fortage endnu en søgning eller opgive
+\end{itemize}\\ \hline
+    \caption{Detaljeret brugsmønster over B01}
+    \label{tab:Detaljeret_brugsmønsterdiagram_B01}
+
+\end{longtable}
+
