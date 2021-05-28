@@ -27,8 +27,9 @@ at kende til selve implementatationen af interfacet.
 \paragraph{Implementering af trelagsarkitekturen}%
 \label{par:implementering_af_trelagsarkitekturen}
 
-Et designmønster der kan være en del af trelagsarkitekturen er designmønsteret
-'Model-View-Controller'. Dette designmønster er struktureret således:
+Et designmønster der der er en oplagt del af trelagsarkitekturen er
+designmønsteret 'Model-View-Controller'. Dette designmønster er struktureret
+således:
 
 \renewcommand{\baselinestretch}{1}
 \begin{figure}[H]
@@ -71,6 +72,14 @@ Et designmønster der kan være en del af trelagsarkitekturen er designmønstere
     \label{fig:mvc}
 \end{figure}
 \renewcommand{\baselinestretch}{1.2}
+
+Dette designmønster separerer interaktion of præsentation fra systemets data.
+View observerer data der holdes i model. View præsenterer det data der holdes i
+model til brugeren. Controlleren står for at respondere på der sker i view, fx
+hvis en bruger klikker på et element der skal starte et nyt view, da står den
+for det sætte det nye view til at blive vist. Den står også at håndtere hvad der
+gøres på selve klikket. 
+Modellen repræsenterer de to andre lag, forretningslogiklaget og persistenslaget.
 
 \subsubsection{Klassediagram}%
 \label{ssub:klassediagram}
