@@ -43,7 +43,7 @@ Herefter udarbejdede gruppen et sekvensdiagram for operationer inde i systemet. 
     \label{fig:B03OSDit1}
 \end{figure}
 
-Iteration 1 var en simpel udgave af programmet og havde ikke vanvittig meget funktionalitet. Figur \ref{fig:B03OSDit1} viser operations sekvensdiagrammet for søgefunktionen searchAndGetCredit der bliver kaldt på GUI delen. GUI'en kalder 
+Iteration 1 var en simpel udgave af programmet og havde ikke vanvittig meget funktionalitet. Figur \ref{fig:B03OSDit1} viser operations sekvensdiagrammet for søgefunktionen searchAndGetCredit der bliver kaldt på GUI delen. GUI'en kalder Krediteringssystem der var en kompleks og stor klasse med meget logik, og sender søge strengen videre. Den kalder så en funktion findCredit på en DatabaseLoader i peristenslag som henter data ind fra in txt fil og returnerer det til Krediteringssystemet. Krediteringssystemet danner så en instans af det ønskede objekt ved at bruge en af de klasser der ligger under Kreditering. "Kreditering" på diagrammet skal forstås som være en gruppe af specifikke krediteringer, som person 
 
 
 
