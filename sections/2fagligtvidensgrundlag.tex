@@ -115,19 +115,47 @@ Ved brug af Java-kodesprog i dette projekt kommer vi til at gøre stor brug af k
         \subitem Statisk polymorfi er  også kendt som compile-time polymorfi eller metode overbelastning. Dette betyder, at man har angivet flere af de samme metodenavne, men med forskellige argumenter. Det betyder altså, når man kalder sådan en metode, så ville kompilatoren beslutte hvilken metode, der bliver kørt i forhold til hvilke parametre, der er angivet.
     \end{itemize}
     
-\subsection{Trelags arkitektur}
-Trelags arkitekturen er en software arkitektur, der deler programmet op i tre lag. Et præsentationslag, et logiklag og et datalag: 
+\subsection{Trelagsarkitektur}
+Trelagsarkitekturen er en softwarearkitektur, der deler programmet op i tre lag. Et præsentationslag, et logiklag og et datalag: 
 \begin{itemize}
     \item Et præsentationslag som udelukkende står for at forsyne brugeren med en brugerflade og hente information fra brugeren og med den information kommunikere med det næste lag, logiklaget.
-    \item Logiklaget står for alle de logiske operationer som er associeret med de gældende elementer i præsentationslaget på baggrund af den information, som brugeren har indtastet. Logiklaget kommunikerer også med datalaget, og kan her sammenholde information fra brugeren med det i databasen for at tage en beslutning om, hvad programmet skal gøre.
+    \item Logiklaget (også kaldet domænelaget) står for alle de logiske operationer som er associeret med de gældende elementer i præsentationslaget på baggrund af den information, som brugeren har indtastet. Logiklaget kommunikerer også med datalaget, og kan her sammenholde information fra brugeren med det i databasen for at tage en beslutning om, hvad programmet skal gøre.
     \item Datalaget står for at lagre systemets data som logiklaget kan anvende.
 \end{itemize}
-For en succesfuld anvendelse af trelags arkitekturen vil brugeren udelukkende blive præsenteret for præsentationslaget og behøver ingen viden om de underliggende lag, da al kommunikation mellem bruger og program sker i dette lag. Brugen af trelags arkitekturen giver nogle fordele. 
+
+Figur \ref{fig:trelagsarkitekur} beskriver denne lagdeling. 
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node[rectangle, draw, minimum width=4.5cm] (presentation) at (0,0) {Præsentationslag};
+        \node[rectangle, draw, minimum width=4.5cm] (domain) at (0,-1.5) {Domænelag};
+        \node[rectangle, draw, minimum width=4.5cm] (persistenslag) at (0,-3)
+            {Persistenslag};
+        \draw[stealth-stealth] (presentation) -- (domain);
+        \draw[stealth-stealth] (persistenslag) -- (domain);
+    \end{tikzpicture}
+    \caption{Beskrivelse af en trelagsarkitektur}
+    \label{fig:trelagsarkitekur}
+\end{figure}
+
+For en succesfuld anvendelse af trelags arkitekturen vil brugeren udelukkende
+blive præsenteret for præsentationslaget og behøver ingen viden om de
+underliggende lag, da al kommunikation mellem bruger og program sker i dette
+lag. Brugen af trelags arkitekturen giver nogle fordele. 
 \begin{itemize}
-    \item Først og fremmest kan udarbejdelsen af de forskellige lag uddelegeres således at de udvikles samtidig. Dette gør udviklingen af programmet hurtigere
-    \item Da al logikken sker et sted, bliver programmet mere skalérbart idet at koden/programmet ikke er kludret sammen og har for mange indgangspunkter.
-    \item Hvis et lag bryder sammen eller ikke virker, påvirkes de andre ikke, da de er opdelt.
-    \item Grundet at trelags arkitekturen opdeler præsentationslaget og datalaget med et logiklag, vil man med korrekt implementering kunne sikre, at en bruger ikke får tilladelse til at tilgå data, som ikke er tiltænkt dem. 
+    \item Først og fremmest kan udarbejdelsen af de forskellige lag uddelegeres
+        således at de udvikles samtidig. Dette gør udviklingen af programmet
+        hurtigere \item Da al logikken sker et sted, bliver programmet mere
+        skalérbart idet at koden/programmet ikke er kludret sammen og har for
+        mange indgangspunkter.  \item Hvis et lag bryder sammen eller ikke
+        virker, påvirkes de andre ikke, da de er opdelt.
+    \item Grundet at trelags arkitekturen opdeler præsentationslaget og
+        datalaget med et logiklag, vil man med korrekt implementering kunne
+        sikre, at en bruger ikke får tilladelse til at tilgå data, som ikke er
+        tiltænkt dem. 
+    \item Lagdelingen bevirker at man kan ændre på implementeringen af et givent
+        lag uden at de andre bemærker det.
 \end{itemize}
 
 \subsection{Unified Process} \label{section: Unified Process}
