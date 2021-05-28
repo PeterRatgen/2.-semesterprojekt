@@ -1,7 +1,7 @@
 \subsection{Design}
 
 Formålet med dete kapitel er at planlægge løsningen, ud fra de krav der der er
-stille, sammenholdt med erfaringerne fra analysen.
+stillet, sammenholdt med erfaringerne fra analysen.
 
 %Skal indeholde Overvejelser, beslutninger og resultater vedr.
 %Softwarearkitektur og detaljeret design, herunder design af persistens. 
@@ -13,14 +13,69 @@ stille, sammenholdt med erfaringerne fra analysen.
 
 Kravet om en trelagsarkitektur (IF-01) er markeret om et "must" i prioriteringen af
 krav. I FURPS+ analysen er kravet placeret som en "Design constraint", da dette
-stiller et krav til designet af systemets arktitektur.
+stiller et krav til designet af systemets arktitektur. 
 
+%Hvordan kan lagene separeres? 
 
-\subsubsection{Skalérbarhed}%
-\label{ssub:skalerbarhed}
+\paragraph{Interfaces} Et oplagt værktøj til at opdele lagene i
+trelagsarkitekturen er anvendelse af interfaces. Med interfaces i mellem lagene 
+skal hver enkelt lag kun afhænge af det specificerede interface. På denne måde
+er der ingået en \emph{kontrakt} i mellem de to pågældende lag.
+Ved anvendelse af disse interfaces behøves det lag der anvender interfacet ikke
+at kende til selve implementatationen af interfacet.
 
+\paragraph{Implementering af trelagsarkitekturen}%
+\label{par:implementering_af_trelagsarkitekturen}
+
+Et designmønster der kan være en del af trelagsarkitekturen er designmønsteret
+'Model-View-Controller'. Dette designmønster er struktureret således:
+
+\renewcommand{\baselinestretch}{1}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \node[rectangle, draw, text width=4cm, inner sep=3mm] (view) at (7.5,0) 
+            { \vspace{-4mm}\begin{center}
+                    \textbf{View}
+                \end{center}
+            %\hline
+            \vspace{-2mm} \small
+             Renderer modellen, sender opdateringer til controlleren};
+        \node[rectangle, draw, text width=4cm, inner sep=3mm] (controller) at
+            (0,0) 
+            { \vspace{-4mm}\begin{center}
+                    \textbf{Controller}
+                \end{center}
+            %\hline
+            \vspace{-2mm} \small
+            Håndterer brugerens interaktioner.};
+        \node[rectangle, draw, text width=4cm, inner sep=3mm] (model) at
+            (3.5,-4.5) 
+            { \vspace{-4mm}\begin{center}
+                    \textbf{Model}
+                \end{center} \small
+            %\hline
+            \vspace{-2mm}
+            Forretningslogik, database};
+        \node[text width=3cm] (nodetoview ) at (4.4, 0.7) {\footnotesize{Valg af view}};
+        \node[text width=3cm] (tocontroller) at (4.3, -0.7) {\footnotesize{Events i viewet}};
+        \node[text width=3cm] (nodetoview ) at (5.4, -2.3) {\footnotesize{Notifikation ved ændringer i data}};
+        \node[text width=2cm] (modeltoview ) at (9, -3) {\footnotesize{Modellens state}};
+        \node[text width=2cm] (controllertomodel ) at (-0.8, -3) {\footnotesize{Ændringer i modellens state}};
+        \draw[-stealth] ([yshift= -0.7cm]controller.north east) -- ([yshift= -0.95cm]view.north west);
+        \draw[stealth-] ([yshift= -1.5cm]controller.north east) -- ([yshift= -1.75cm]view.north west);
+        \draw[-stealth] ([yshift= -0.2cm]model.north east) -| ([xshift= -1cm]view.south);
+        \draw[stealth-] (model.east) -| (view.south);
+        \draw[-stealth] (controller.south) |- (model.west);
+    \end{tikzpicture} 
+    \label{fig:mvc}
+\end{figure}
+\renewcommand{\baselinestretch}{1.2}
 
 \subsubsection{Klassediagram}%
 \label{ssub:klassediagram}
 
+
+\subsubsection{Systemsekvensdiagrammer}%
+\label{ssub:systemsekvensdiagrammer}
 
