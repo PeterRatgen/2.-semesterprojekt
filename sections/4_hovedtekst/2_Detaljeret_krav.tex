@@ -67,3 +67,80 @@ Ud fra de overordnede krav er enkelte krav/brugsmøsntre udvalgt til en mere det
 
 \end{longtable}
 
+\subsubsection{Supplerende krav}
+En detaljeret beskrivelse af de supplerende krav kan med fordel stilles op ved hjælp Furps+ model. Med Furps+ kategoriseres kravene efter hvilke område de vedrører. 
+
+
+
+\begin{itemize}
+    \item \textbf{Reliability} \newline
+    Under dette punkt placeres de krav, som bliver sat til pålideligheden af programmet. I vores tilfælde har vi 2 krav, som omhandler oppetid og sikkerhed for programmet. 
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|p{30mm}|p{90mm}|}
+        \hline
+            Oppetid &  TV 2 har et krav om at systemet har en oppetid på 99,7 - 99,8\% .
+        \\ \hline
+            Sikkerhed & TV 2 stiller et meget stærkt krav om, at der er styr på, at al data i systemet er korrekt, da data skal anvendes for at sikre, at krediterede personer får den betaling, de har ret til.
+        \\ \hline
+        \end{tabular}
+            \caption{Supplerende krav - Reliability}
+            \label{tab:Reliablity}
+        \end{table}
+    
+    \item \textbf{Performance} \newline
+    Til dette punkt har vi et enkelt krav, som ikke er yderligere specificeret end, at programmet skal have en svartid der er så lav som muligt.
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{|p{30mm}|p{90mm}|}
+            \hline
+                Svartid & TV 2 Ønsker at svartiden på systemet skal være så lav som muligt.
+            \\ \hline
+            \end{tabular}
+                \caption{Supplerende krav - Performance}
+                \label{tab:Performance}
+        \end{table}
+
+
+    \item \textbf{Plus} \newline
+    \textbf{Design constraints:} Her er det vi placere de specifikke begrænsning vores system er pålagt. Kravet om 3-lags arkitektur placeres her da det er et specifikt krav til systemet stillet af SDU.
+        \begin{table}[H]
+        \centering
+            \begin{tabular}{|p{30mm}|p{90mm}|}
+            \hline
+                3-lags arkitektur & Det ønskes at programmet følger en 3-lags arkitektur.
+            \\ \hline
+            \end{tabular}
+        \caption{Supplerende krav - Design constraints}
+        \label{tab:Design_constraints}
+        \end{table}
+        
+    \textbf{Implementation requirements:}
+    Implementerings krav stiller retningslinjer for programmørenes implementering, og de blot skal forholde sig til standarderne eller noget specifikt. Her har vi et krav stillet TV 2, som omhandler måden hvorpå en person registreres i systemet. Det skal her være muligt at differentiere mellem personer med identiske navne. Dette vurdere vi til at være delvist opnået, da det er muligt at oprette personer med identiske navne, og de vil få tildelt unikke ID'er. Dette er dog ikke tydliggjordt for brugeren, hvorfor vi mener den er delvist opnået. 
+    
+    
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|p{30mm}|p{90mm}|}
+        \hline
+            Unikke personer & Der er et krav om, at man skal kunne differentiere personer med f.eks. identiske navne.
+        \\ \hline
+        \end{tabular}
+            \caption{Supplerende krav - Implementation requirements}
+            \label{tab:Implementation_requirements}
+        \end{table}
+        
+    \textbf{Interface requirements:}
+    Interface requrements kigger på om der nogle interfaces, som programmet skal kunne på eller med. Til dette projekt har TV 2 haft et ønske om at programmet skal interagere med deres øvrige programmer, dette har dog ikke været muligt at udfører i denne udgave af produktet.
+        \begin{table}[H]
+        \centering
+        \begin{tabular}{|p{30mm}|p{90mm}|}
+        \hline
+            Integration med andre systemer & TV 2 har et ønske om at programmet skal kunne integreres med en række af de systemer, de anvender i forvejen. Eksempler kunne være EPG og login-systemet til TV 2 Play.
+        \\ \hline
+        \end{tabular}
+            \caption{Supplerende krav - Interface requirements}
+            \label{tab:Interface_requirements}
+        \end{table}
+    
+\end{itemize}
