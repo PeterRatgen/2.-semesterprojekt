@@ -1,5 +1,7 @@
 \subsection{Analyse}
 
+Dette kapitel beskriver analyse, med tilhørende beslutninger og resultater.
+
 \subsubsection{Brugsmønsterrealisering}
 
 \paragraph{B03: Foretage en søgning} Først foretages en brugsmønsterrealisering på brugsmønsteret B03 foretage en søgning. Først dannes der et systemsekvensdiagram. Dette giver et overblik over hvad målet er. Systemsekvensdiagrammet for B03 ses på firgur \ref{fig:SystemsekvensdiagramSearch} 
@@ -42,8 +44,6 @@ Herefter udarbejdede gruppen et sekvensdiagram for operationer inde i systemet. 
     \caption{Sekvensdiagram for operationer på ved searchAndGetCredit i iteration 1}
     \label{fig:B03OSDit1}
 \end{figure}
-
-Iteration 1 var en simpel udgave af programmet og havde ikke vanvittig meget funktionalitet. Figur \ref{fig:B03OSDit1} viser operations sekvensdiagrammet for søgefunktionen searchAndGetCredit der bliver kaldt på GUI delen. GUI'en kalder Krediteringssystem der var en kompleks og stor klasse med meget logik, og sender søge strengen videre. Den kalder så en funktion findCredit på en DatabaseLoader i peristenslag som henter data ind fra in txt fil og returnerer det til Krediteringssystemet. Krediteringssystemet danner så en instans af det ønskede objekt ved at bruge en af de klasser der ligger under Kreditering. "Kreditering" på diagrammet skal forstås som være en gruppe af specifikke krediteringer, som person 
 
 
 
