@@ -24,11 +24,10 @@ er der ingået en \emph{kontrakt} i mellem de to pågældende lag.
 Ved anvendelse af disse interfaces behøves det lag der anvender interfacet ikke
 at kende til selve implementatationen af interfacet.
 
-\paragraph{Implementering af trelagsarkitekturen}%
-\label{par:implementering_af_trelagsarkitekturen}
+\paragraph{Separation mellem presentationslaget og domænelaget}
 
-Et designmønster der der er en oplagt del af trelagsarkitekturen er
-designmønsteret 'Model-View-Controller'. Dette designmønster er struktureret
+Et designmønster der er en oplagt som en del af trelagsarkitekturen er
+designmønsteret 'Model-View-Controller'\cite[p. 176]{} . Dette designmønster er struktureret
 således:
 
 \renewcommand{\baselinestretch}{1}
@@ -73,13 +72,20 @@ således:
 \end{figure}
 \renewcommand{\baselinestretch}{1.2}
 
-Dette designmønster separerer interaktion of præsentation fra systemets data.
-View observerer data der holdes i model. View præsenterer det data der holdes i
-model til brugeren. Controlleren står for at respondere på der sker i view, fx
-hvis en bruger klikker på et element der skal starte et nyt view, da står den
-for det sætte det nye view til at blive vist. Den står også at håndtere hvad der
-gøres på selve klikket. 
-Modellen repræsenterer de to andre lag, forretningslogiklaget og persistenslaget.
+Dette designmønster separerer interaktion og præsentation fra systemets data.
+Det vil sige at præsentations- og domænelaget separeres. View \emph{observerer}
+data der holdes i modellen. View præsenterer det data der holdes i modellen til
+brugeren. Dette gør at dataen kan ændre sig uafhængigt af præsentationen, siden
+præsentationslaget udlukkende observerer dataen.  Controlleren står for at
+respondere på der sker i view, fx hvis en bruger klikker på et element der skal
+starte et nyt view, da står den for det sætte det nye view til at blive vist.
+Den står også for at håndtere hvad der gøres når der klikkes på et given element
+i viewet.  Modellen repræsenterer de to andre lag, forretningslogiklaget og
+persistenslaget, og står derved for håndtere og manipulere med data.
+
+\subparagraph{}
+
+
 \paragraph{Pakkediagram} Systemet er delt op i pakker efter præsentations-,
 domæne- og persistenslag. Ved denne opdeling kan det nemmere sikres at
 trelagsarkitekturen overholdes. Et pakkediagram blev opsat og kan ses på figur
