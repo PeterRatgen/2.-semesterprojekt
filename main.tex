@@ -20,7 +20,8 @@
 \usepackage{enumitem}
 \usepackage[left=3cm, right=3cm, top=3cm, bottom=3cm]{geometry}
 %\usepackage[a4paper, top = 1in, bottom = 1in, left=1.5in,right=1.5in]{geometry}
-%\usepackage[backend=biber, citestyle=ieee]{biblatex}
+\usepackage[backend=biber, citestyle=ieee]{biblatex}
+\usepackage{csquotes}
 \usepackage{appendix}
 \usepackage{comment}
 \usepackage{wrapfig}
@@ -30,8 +31,11 @@
 \usepackage{longtable}
 \usepackage{makecell}
 \usepackage{multicol}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
 \tikzset{baseline,every tree node/.style={align=center,anchor=north}}
 
+\bibliography{Bibliography.bib}
 
 \title{2. semesterprojekt}
 \author{Gruppe 4}
@@ -79,8 +83,7 @@
 \input{sections/7perspektivering}
 \input{sections/8procesevaluering}
 \clearpage
-\bibliographystyle{ieeetr}
-\bibliography{Bibliography.bib}
+\printbibliography
 \clearpage
 \appendix
 
