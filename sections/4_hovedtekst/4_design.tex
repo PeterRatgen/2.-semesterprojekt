@@ -80,7 +80,10 @@ hvis en bruger klikker på et element der skal starte et nyt view, da står den
 for det sætte det nye view til at blive vist. Den står også at håndtere hvad der
 gøres på selve klikket. 
 Modellen repræsenterer de to andre lag, forretningslogiklaget og persistenslaget.
-\paragraph{Pakkediagram} Systemet er delt op i pakker efter præsentations-, domæne- og persistenslag. Ved denne opdeling kan det nemmere sikres at trelagsarkitekturen overholdes. Et pakkediagram blev opsat og kan ses på figur \ref{fig:PackageDiagram}
+\paragraph{Pakkediagram} Systemet er delt op i pakker efter præsentations-,
+domæne- og persistenslag. Ved denne opdeling kan det nemmere sikres at
+trelagsarkitekturen overholdes. Et pakkediagram blev opsat og kan ses på figur
+\ref{fig:PackageDiagram}
 
 \begin{figure}[H]
     \centering
@@ -89,16 +92,25 @@ Modellen repræsenterer de to andre lag, forretningslogiklaget og persistenslage
     \label{fig:PackageDiagram}
 \end{figure}
 
-Figur \ref{fig:PackageDiagram} viser hvordan pakkerne kommunikerer med hinanden. Klassen CreditSystemController, viser en GUI for brugeren. Når brugeren foretager en handling, knytter GUI sig til nogle controllers i pakken Controllers som kalder metoder på ApplicationManager i domænelaget. ApplicationManager kalder den passende Manager i pakken Services som kan gøre en af to ting: 
+Figur \ref{fig:PackageDiagram} viser hvordan pakkerne kommunikerer med hinanden.
+Klassen CreditSystemController, viser en GUI for brugeren. Når brugeren
+foretager en handling, knytter GUI sig til nogle controllers i pakken
+Controllers som kalder metoder på ApplicationManager i domænelaget.
+ApplicationManager kalder den passende Manager i pakken Services som kan gøre en
+af to ting: 
 
 \begin{itemize}
-    \item Hvis brugeren har oprettet en ny kreditering i GUI er objektet allerede instantieret, og manageren kalder derfor en 'put' metode på DatabaseLoaderFacade i persistensLaget, som derefter kalder den passende metode i DatabaseLoader. 
-    \item Hvis brugeren har søgt efter en kreditering, kalder manageren først pakken objectMapping, som herefter kalder en 'get' funktion på DatabaseLoaderFacade som dernæst kalder den passende metode på DatabaseLoader der queryer databasen, og returnerer resultaterne. Disse resultater får 
+    \item Hvis brugeren har oprettet en ny kreditering i GUI er objektet
+        allerede instantieret, og manageren kalder derfor en 'put' metode på
+        DatabaseLoaderFacade i persistensLaget, som derefter kalder den passende
+        metode i DatabaseLoader.  
+    \item Hvis brugeren har søgt efter en
+        kreditering, kalder manageren først pakken objectMapping, som herefter
+        kalder en
 \end{itemize}
 
 
 
->>>>>>> 1dffd84e5c66da6e812203f14decc61b56f1b598
 \subsubsection{Klassediagram}%
 \label{ssub:klassediagram}
 
