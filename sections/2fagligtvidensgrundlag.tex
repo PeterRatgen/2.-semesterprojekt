@@ -116,10 +116,18 @@ Ved brug af Java-kodesprog i dette projekt kommer vi til at gøre stor brug af k
     \end{itemize}
     
 \subsection{Trelagsarkitektur}
-Trelagsarkitekturen er en softwarearkitektur, der deler programmet op i tre lag. Et præsentationslag, et logiklag og et datalag: 
+Trelagsarkitekturen er en softwarearkitektur, der deler programmet op i tre lag.
+Et præsentationslag, et logiklag og et datalag: 
 \begin{itemize}
-    \item Et præsentationslag som udelukkende står for at forsyne brugeren med en brugerflade og hente information fra brugeren og med den information kommunikere med det næste lag, logiklaget.
-    \item Logiklaget (også kaldet domænelaget) står for alle de logiske operationer som er associeret med de gældende elementer i præsentationslaget på baggrund af den information, som brugeren har indtastet. Logiklaget kommunikerer også med datalaget, og kan her sammenholde information fra brugeren med det i databasen for at tage en beslutning om, hvad programmet skal gøre.
+    \item Et præsentationslag som udelukkende står for at forsyne brugeren med
+        en brugerflade og hente information fra brugeren og med den information
+        kommunikere med det næste lag, logiklaget.
+    \item Logiklaget (også kaldet domænelaget) står for alle de logiske
+        operationer som er associeret med de gældende elementer i
+        præsentationslaget på baggrund af den information, som brugeren har
+        indtastet. Logiklaget kommunikerer også med datalaget, og kan her
+        sammenholde information fra brugeren med det i databasen for at tage en
+        beslutning om, hvad programmet skal gøre.
     \item Datalaget står for at lagre systemets data som logiklaget kan anvende.
 \end{itemize}
 
