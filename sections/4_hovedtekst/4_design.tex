@@ -93,7 +93,7 @@ Figur \ref{fig:PackageDiagram} viser hvordan pakkerne kommunikerer med hinanden.
 
 \begin{itemize}
     \item Hvis brugeren har oprettet en ny kreditering i GUI er objektet allerede instantieret, og manageren kalder derfor en 'put' metode på DatabaseLoaderFacade i persistensLaget, som derefter kalder den passende metode i DatabaseLoader. 
-    \item Hvis brugeren har søgt efter en kreditering, kalder manageren først pakken objectMapping, som herefter kalder en
+    \item Hvis brugeren har søgt efter en kreditering, kalder manageren først pakken objectMapping, som herefter kalder en 'get' funktion på DatabaseLoaderFacade som dernæst kalder den passende metode på DatabaseLoader der queryer databasen, og returnerer resultaterne. Disse resultater får 
 \end{itemize}
 
 
