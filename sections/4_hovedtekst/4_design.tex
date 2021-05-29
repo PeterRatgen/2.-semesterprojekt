@@ -1,3 +1,4 @@
+\newpage
 \subsection{Design}
 
 Formålet med dette kapitel er at planlægge løsningen, ud fra de krav der der er
@@ -95,6 +96,20 @@ den konkrete implementation af persistenslaget.
 For at specificere en egentlig kontrakt, som persistenslaget skal leve op til
 kan der specificeres et interface, for de operationer som persistenslaget skal
 tilbyde.
+
+\paragraph{Abstraktion af dataobjekter}
+
+Selv om systemets opdeles i tre lag, skal data stadig kunne flyde i mellem de
+tre lag. Her er det vigtigt at de samme dataobjekter anvendes i alle lag. For at
+sikre at et lag (fx præsentationslaget) kan anvende af et dataobjekt skal der
+specificeres en kontrakt der stille krav for implementationen af hvert
+dataobjekt. Præsentationslaget kan derfor nu afhænge af interfacet(kontrakten)
+og de metoder denne tilbyder, i stedet for at afhænge direkte på
+implementationen af et givent dataobjekt. Dermed kan implementationen af det
+underliggende dataobjekt ændre sig, selvom det tilbyder de samme operationer (da
+det stadig skal leve op til kontrakten).
+
+\paragraph{Instantiering af dataobjekter}
 
 \subsubsection{Pakkediagram} Systemet er delt op i pakker efter præsentations-,
 domæne- og persistenslag. Ved denne opdeling kan det nemmere sikres at
