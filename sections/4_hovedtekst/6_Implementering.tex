@@ -7,5 +7,28 @@ Formålet med dette afsnit er at gå fra vores design til kode.
 \label{ssub:sogning_i_krediteringer}
 
 Søgninger i krediteringer baserer sig på brugsmønster B03. Operationskontrakten
-for dette brugsmønster ses i tabel \ref{tab:OperationsKontraktB03}.
+for dette brugsmønster ses i tabel \ref{tab:OperationsKontraktB03}. Det
+udspecificerede sekvensdiagram ses på figur \ref{fig:B03OSDDesign}.
 
+Fra \texttt{Menu.fxml} kaldes \texttt{submitSearch()} i controlleren
+\texttt{MenuController}, ved tryk på søgeknappen. Hvis man kaster et blik på
+MVC-modellen set på figur \ref{fig:mvc}, kan man at der her kaldes fra viewet i
+\texttt{.fxml} filen til controlleren. \texttt{MenuController} sætter derpå et
+nyt view, \texttt{SearchResult.fxml}. Dette view skal vise resultaterne af
+søgningen. Dette ses i nedenstående snippet. Der sættes også en ny controller,
+til at administrere det nye view.
+
+\begin{lstlisting}
+setContentPane("SearchResult.fxml", (Object) SearchController.getInstance());
+SearchController.getInstance().setContent();
+\end{lstlisting}
+
+Derpå kalder \texttt{SearchController},
+
+\begin{lstlisting}
+SearchList.setItems(ApplicationManager.getInstance().search(searchString));
+\end{lstlisting}
+
+hvorpå at \texttt{ApplicationManager} i domænelaget står for at facilitere
+søgningen, ved at kalde de korrekte Managers for at lave søgningen. Her bliver
+\texttt{PersonManager} kaldt, hvorpå 
