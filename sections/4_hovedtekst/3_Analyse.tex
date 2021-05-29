@@ -1,3 +1,5 @@
+\hfuzz=100pt
+\vfuzz=100pt
 \subsection{Analyse}
 
 Dette kapitel beskriver analyse, med tilhørende beslutninger og resultater.
@@ -18,7 +20,7 @@ Firgur \ref{fig:SystemsekvensdiagramSearch} viser at en aktør, her en bruger, b
 \begin{table}[H]
 \centering
 \label{tab:2}
-    \begin{tabular}{|p{25mm} p{85mm}|} \hline
+    \begin{tabular}{|p{35mm}|p{70mm}|} \hline
         \textbf{Kontrakt} &  \\ \hline
         \textbf{Operation} & search(searchString) \\ \hline
         \textbf{Refererer til} & Brugsmønster: Foretag en søgning \\ \hline
@@ -29,7 +31,8 @@ Firgur \ref{fig:SystemsekvensdiagramSearch} viser at en aktør, her en bruger, b
         \end{itemize}
         Den liste som brugeren får vist, vil indeholde en mængde af krediteringer der passer til deres forespørgsel, og kunden kan her vælge en af disse krediteringer, og få yderligere information om den\\ \hline
         \textbf{Prækonditioner} & Databasen indeholder data\\ \hline
-        \textbf{Postkonditioner} & Brugeren får vist en liste af krediteringer som matcher forespørgslen.\\ \hline
+        \textbf{Postkonditioner} &
+        Brugeren får vist en liste af krediteringer som matcher forespørgslen.\\ \hline
     \end{tabular}
         \caption{Operationskontrakt for operationen search}
         \label{tab:OperationsKontraktB03}
