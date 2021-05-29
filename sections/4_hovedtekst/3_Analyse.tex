@@ -106,8 +106,18 @@ Ud fra dette diagram blev der opsat en operationskontrakt over hvilket ansvar se
         \label{tab:OperationsKontraktB03}
 \end{table}
 
-Tabel \ref{tab:OperationsKontraktB03} fortæller at ansvaret for search operationen er at finde de krediteringer der matcher brugerens forespørgsel, og returnere dem så de kan ses. Dette kræver at der er data det matcher i databasen som samtidig er godkendt af en TV 2 moderator. Der skal altså tilføjes funktonalistet til at tjekke om en kreditering er godkendt eller ej inden den vises. Instantieringen af objekter for at vise dem på GUI delen giver også anledning til nogle design valg. Man kunne instantiere dem med det samme man hente det fra databasen/filen, eller måske opbygge en service til instantieringen/konstruktionen af objekter. Kontrakten belyser i hvert fald flere muligheder i dette tilfælde
-Herefter udarbejdede gruppen et sekvensdiagram for operationer inde i systemet som kan ses på figur \ref{fig:OperationsSekvensdiagramSearch} 
+Tabel \ref{tab:OperationsKontraktB03} fortæller at ansvaret for search
+operationen er at finde de krediteringer der matcher brugerens forespørgsel, og
+returnere dem så de kan ses. Dette kræver at der er data det matcher i databasen
+som samtidig er godkendt af en TV 2 moderator. Der skal altså tilføjes
+funktonalistet til at tjekke om en kreditering er godkendt eller ej inden den
+vises. Instantieringen af objekter for at vise dem på GUI delen giver også
+anledning til nogle design valg. Man kunne instantiere dem med det samme man
+hente det fra databasen/filen, eller måske opbygge en service til
+instantieringen/konstruktionen af objekter. Kontrakten belyser i hvert fald
+flere muligheder i dette tilfælde
+Herefter udarbejdede gruppen et sekvensdiagram for operationer inde i systemet
+som kan ses på figur \ref{fig:OperationsSekvensdiagramSearch} 
 \begin{figure}[H]
     %\centering
 \centerline{\includegraphics[scale = 0.37]{images/B03OSD.png}}
