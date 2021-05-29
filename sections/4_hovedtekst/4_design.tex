@@ -1,6 +1,6 @@
 \subsection{Design}
 
-Formålet med dete kapitel er at planlægge løsningen, ud fra de krav der der er
+Formålet med dette kapitel er at planlægge løsningen, ud fra de krav der der er
 stillet, sammenholdt med erfaringerne fra analysen.
 
 %Skal indeholde Overvejelser, beslutninger og resultater vedr.
@@ -13,18 +13,18 @@ stillet, sammenholdt med erfaringerne fra analysen.
 
 Kravet om en trelagsarkitektur (IF-01) er markeret om et "must" i prioriteringen af
 krav. I FURPS+ analysen er kravet placeret som en "Design constraint", da dette
-stiller et krav til designet af systemets arktitektur. 
+stiller et krav til designet af systemets arkitektur. 
 
 %Hvordan kan lagene separeres? 
 
 \paragraph{Interfaces} Et oplagt værktøj til at opdele lagene i
 trelagsarkitekturen er anvendelse af interfaces. Med interfaces i mellem lagene 
 skal hver enkelt lag kun afhænge af det specificerede interface. På denne måde
-er der ingået en \emph{kontrakt} i mellem de to pågældende lag.
+er der indgået en \emph{kontrakt} i mellem de to pågældende lag.
 Ved anvendelse af disse interfaces behøves det lag der anvender interfacet ikke
-at kende til selve implementatationen af interfacet.
+at kende til selve implementationen af interfacet.
 
-\paragraph{Separation mellem presentationslaget og domænelaget}
+\paragraph{Separation mellem præsentationslaget og domænelaget}
 
 Et designmønster der er en oplagt som en del af trelagsarkitekturen er
 designmønsteret 'Model-View-Controller'\cite[p. 176]{} . Dette designmønster er struktureret
@@ -75,8 +75,8 @@ således:
 Dette designmønster separerer interaktion og præsentation fra systemets data.
 Det vil sige at præsentations- og domænelaget separeres. View \emph{observerer}
 data der holdes i modellen. View præsenterer det data der holdes i modellen til
-brugeren. Dette gør at dataen kan ændre sig uafhængigt af præsentationen, siden
-præsentationslaget udlukkende observerer dataen.  Controlleren står for at
+brugeren. Dette gør at data kan ændre sig uafhængigt af præsentationen, siden
+præsentationslaget udelukkende observerer data.  Controlleren står for at
 respondere på der sker i view, fx hvis en bruger klikker på et element der skal
 starte et nyt view, da står den for det sætte det nye view til at blive vist.
 Den står også for at håndtere hvad der gøres når der klikkes på et given element
@@ -85,7 +85,16 @@ persistenslaget, og står derved for håndtere og manipulere med data.
 
 \paragraph{Separation mellem domænelaget og persistenslaget}
 
+For at separere domænelaget persistenslaget, man der anvendes andet
+designmønster. Generelt set kan man sige at domænelaget anvender
+persistenslaget. For at simplificere kommunikationen mellem domænelaget og
+persistenslaget kan vi anvende én klasse til at interagere med persistenslaget.
+Dette designmønster kaldes "Facade"-designmønsteret. Denne facadeklasse skjuler
+den konkrete implementation af persistenslaget.
 
+For at specificere en egentlig kontrakt, som persistenslaget skal leve op til
+kan der specificeres et interface, for de operationer som persistenslaget skal
+tilbyde.
 
 \subsubsection{Pakkediagram} Systemet er delt op i pakker efter præsentations-,
 domæne- og persistenslag. Ved denne opdeling kan det nemmere sikres at
@@ -107,8 +116,16 @@ ApplicationManager kalder den passende Manager i pakken Services som kan gøre e
 af to ting: 
 
 \begin{itemize}
-    \item Hvis brugeren har oprettet en ny kreditering i GUI er objektet allerede instantieret, og manageren kalder derfor en 'put' metode på DatabaseLoaderFacade i persistensLaget, som derefter kalder den passende metode i DatabaseLoader. 
-    \item Hvis brugeren har søgt efter en kreditering, kalder manageren først pakken objectMapping, som herefter kalder en 'get' funktion på DatabaseLoaderFacade som dernæst kalder den passende metode på DatabaseLoader der queryer databasen, og returnerer resultaterne. Disse resultater får objectMapping pakken, og instantierer objekter via data pakken i domain.
+    \item Hvis brugeren har oprettet en ny kreditering i GUI er objektet
+        allerede instantieret, og manageren kalder derfor en 'put' metode på
+        DatabaseLoaderFacade i persistensLaget, som derefter kalder den passende
+        metode i DatabaseLoader. 
+    \item Hvis brugeren har søgt efter en kreditering, kalder manageren først
+        pakken objectMapping, som herefter kalder en 'get' funktion på
+        DatabaseLoaderFacade som dernæst kalder den passende metode på
+        DatabaseLoader der queryer databasen, og returnerer resultaterne. Disse
+        resultater får objectMapping pakken, og instantierer objekter via data
+        pakken i domain.
 \end{itemize}
 
 
