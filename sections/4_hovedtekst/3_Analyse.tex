@@ -4,7 +4,52 @@
 
 Dette kapitel beskriver analyse, med tilhørende beslutninger og resultater.
 
-\subsubsection{Brugsmønsterrealisering}
+\subsubsection{AnalyseKlassediagram} Ud fra de detaljerede brugsmønstre dannede gruppen et analyse klassediagram
+
+\begin{figure}[H]
+    %\centering
+    \makebox[\textwidth][c]{\includegraphics[width=1.2\textwidth]{images/AnalyseKlasseDiagram.png}}
+    \caption{Analyse klasse diagrammet dannet fra de detaljerede brugsmønstre}
+    \label{fig:AnalyseKlasseDiagram}
+\end{figure}
+
+Diagrammet viser den grundlæggende struktur. Centralt ligger en controller. Denne controller håndterer input fra GUI'en der har sine egen tilknyttede controllers, der håndterer interaktioner med knapper, tekstfelter osv. Den centrale controller skal blandt andet stå for at instantiere krediteringer. Dette bringer os til objekt-strukturen. Objekt strukturen er dannet ud fra både brugsmønstrene, og hvilke data TV 2 har opgivet skal inkluderes i systemet. Grundlæggende er alle indlæg i systemet en kreditering, og derfor vil alle (undtagen Job) nedarve fra Credit. Alle krediteringer vil have et navn, hvilken dato krediteringen er tilføjet, en beskrivelse og et overordnet creditID. Derudover markerer brugsmønsterdiagrammet også at en kreditering skal kunne godkendes og derfor at der tilføjet en boolean variabel navngivet approved. Fra Credit nedarver Group og Company, som ikke bærer noget ekstra information og får derfor kun et groupID og companyID. Disse to klasser er dog gennem projektet blevet nedprioriteret og er ikke blevet implementeret, så derfor vil der fremover ikke refereres til disse to. Person nedarver også fra Credit, og bærer noget personlig information som variabler. Systemet skulle også kunne holde film og serier. Ved dialog med Morten Lehm fra TV 2 Play, fandt gruppen frem til at, det at registrere hvad en person har bidraget til skal ske på episoden og ikke serien, da personalet kan variere fra episode til episode. Derved blev klassen Production tilføjet, da både Movie og Episode er en type af produktion, og derfor nedarver disse to fra den. En produktion har en kategori, som tilføjes via en enumerator kaldet Category, som indeholder alle kategorier som TV 2 har videregivet til gruppen i forbindelse med projektet. En episode kan dog ikke eksistere alene, men hører i stedet til en sæson. Ligesom episoden, kan en sæson heller ikke eksistere uden en serie, og derfor er der tilføjet komposition mellem disse klasser. Til sidst tilføjes job. Job er den klasse der markerer hvad en person har bidraget til, ved at samle personID og productionID i en klasse. Dette job er også markeret med en rolle, som tilføjes ved en Enum kaldet Role der indholder alle de roller som TV 2 har videregivet der skal krediteret. Fordelen ved at have denne Job klasse er at en person kan have flere job på samme produktion, hvis de f.eks. både var skuespiller og instruktør.
+Analyse klassediagrammet ligger den grundlæggende struktur men er ikke nok til at starte implementeringen af programmet, da det ikke fortæller hvordan klasserne snakke sammen. Dette finde ved brugsmønsterrealisering
+
+\subsubsection{Brugsmønsterrealisering} Formålet med brugsmønsterrealisering er at opfange opførslen af klasser, hvor klassediagrammet fortæller om forholdet mellem klasser. Efter brugsmønsterrealisering har man opnået et bedre overblik over hvilke metoder der kaldes hvor
+
+\paragraph{B01: Registrering af kreditering} For at vise brugsmønsterrealisegingen af B01, tages der udgangspunkt i at tilføje en person. Operationerne vil stort set være det samme for andre typer af krediteringer, så derfor vises blot én af typerne for at visualisere det at registrere en kreditering.
+
+Figur \ref{fig:B01_Systemsekvensdiagram} viser et happy day scenarie for operationen addPerson. Når aktøren har interageret med systemet, skal der være tilføjet en ny person til filen eller Databasen. Der sendes navn ,beskrivelse, telefonnummer, personligtInfo og email. Dato indtastes ikke af brugeren, da systemet selv danner denne så der registreses den nøjagtige dato. Samtidig sættes approved variablen også automatisk til false, så den er klar til at blive tjekket igennem af en TV 2 moderator. Ud fra dette diagram dannes en operationskontrakt.
+
+\begin{table}[H]
+\centering
+\label{tab:2}
+    \begin{tabular}{|p{35mm}|p{70mm}|} \hline
+        \textbf{Kontrakt} &  \\ \hline
+        \textbf{Operation} & addPerson(...) \\ \hline
+        \textbf{Refererer til} & Brugsmønster: B01 Registrering af kreditering \\ \hline
+        \textbf{Ansvar} & Ansvaret for denne operation er at at modtage en forespørgsel fra en bruger og vise de krediteringer der svarer til forespørgslen, for brugeren hvis:
+        \begin{itemize}
+            \item Der eksisterer krediteringer der matcher brugerens forespørgsel
+            \item Den ønskede kreditering er godkendt af TV 2 moderatorer 
+        \end{itemize}
+        Den liste som brugeren får vist, vil indeholde en mængde af krediteringer der passer til deres forespørgsel, og kunden kan her vælge en af disse krediteringer, og få yderligere information om den\\ \hline
+        \textbf{Prækonditioner} & Databasen indeholder data\\ \hline
+        \textbf{Postkonditioner} &
+        Brugeren får vist en liste af krediteringer som matcher forespørgslen.\\ \hline
+    \end{tabular}
+        \caption{Operationskontrakt for operationen addPerson}
+        \label{tab:OperationsKontraktB01}
+\end{table}
+
+ 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.5]{images/B01SSD.png}
+    \caption{B01 Systemsekvensdiagram}
+    \label{fig:B01_Systemsekvensdiagram}
+\end{figure}
 
 \paragraph{B03: Foretage en søgning} Først foretages en brugsmønsterrealisering på brugsmønsteret B03 foretage en søgning. Først dannes der et systemsekvensdiagram. Dette giver et overblik over hvad målet er. Systemsekvensdiagrammet for B03 ses på firgur \ref{fig:SystemsekvensdiagramSearch} 
 
@@ -60,7 +105,7 @@ Dette var flowet i 1 iteration, som gruppen endte med at være utilfreds med, og
     \label{fig:OperationsSekvensdiagramSearch}
 \end{figure}
 
-Operations sekvensdiagrammet på figur \ref{fig:OperationsSekvensdiagramSearch} viser hvilke klasser som systemet går igennem for at lave en søgning. Det starter med at aktøren indtaster sine søgekriterier og trykker søg på GUI'en. Dette kalder funktionen search som tager en string som parameter. Search kalder funktionen setContent på SearchController klassen, som har til ansvar at få en liste fra searchString og vise den liste på GUI. SearchController kalder så funktionen search på application manager, som tager searchString og søger efter de forskellige typer af krediteringer. I dette eksempel vises kun søgningen efter personer, men flowet er det samme for film og serier, og derfor er de ikke medtaget i diagrammet. Application manager kalder searchPerson på PersonManager. PersonManager står for mange af funktonerne på objekter af typen Person. Personmanager kalder derefter getPersons på Factory. Factory er den klasse der står for at afgøre objekter der skal konstrueres og hvor data skal hentes fra. Factory kalder så searchPersonsFromDatabase på DatabaseLoaderFacade og sender igen searchString videre. DatabaseLoaderFacade er den simple indgang til databseLoader, hvor Facaden kalder funktionen searchQueryToPersonList stadig med searchString som parameter. Denne funktion queryer så databasen ved at finde de tupler der minder som søgekriteriet searchString. Databasen returnerer derefter et ResultSet af tupler, som sendes tilbage til Factory gennem DatabaseLoader, og DatabaseLoaderFacade. Her begynder konstruktionen af objekterne. Factory starter et loop, der slutter når der ikke er flere tupler i ResultSettet. For hver tupel, kalder Factory mapPerson på Mapper og sender en tupel som parameter. Metoden mapPersons tager denne tupel, og instantierer et person-objekt som en IPerson. En produktion som denne person har været med på kaldes et job. Factory sender den nyligt instantierede person til databasen (ved samme flow som perons) og får returneret et ResultSet af Jobs der har personens personID. Factory starter igen et loop over alle tupler i ResultSettet og tilføjer et instantieret job til en Arrayliste som sættes til personens jobs variabel. Her er personen konstrueret færdig, og personen tilføjes til et liste af krediteringer, creditList. og loopet kører igen. Når der ikke er flere tupler, returneres creditList, først gennem PersonManager, til ApplicationManger der tilføjer listen med personer til en generel list af Krediteringer. Her vil ApplicationManager så søge efter de nadre typer af krediteringer, film og serier, og tilføje dem til listen også. Når dette er gjort, laves listen om til en ObservableList som returneres til SearchController som sætter et ListView på GUI til at vise denne Observable list, og her får aktøren så vist listen af krediteringer der svarer til deres søgning.
+Operations sekvensdiagrammet på figur \ref{fig:OperationsSekvensdiagramSearch} viser hvilke klasser som systemet går igennem for at lave en søgning i Iteration 2. Det starter med at aktøren indtaster sine søgekriterier og trykker søg på GUI'en. Dette kalder funktionen search som tager en string som parameter. Search kalder funktionen setContent på SearchController klassen, som har til ansvar at få en liste fra searchString og vise den liste på GUI. SearchController kalder så funktionen search på application manager, som tager searchString og søger efter de forskellige typer af krediteringer. I dette eksempel vises kun søgningen efter personer, men flowet er det samme for film og serier, og derfor er de ikke medtaget i diagrammet. Application manager kalder searchPerson på PersonManager. PersonManager står for mange af funktonerne på objekter af typen Person. Personmanager kalder derefter getPersons på Factory. Factory er den klasse der står for at afgøre objekter der skal konstrueres og hvor data skal hentes fra. Factory kalder så searchPersonsFromDatabase på DatabaseLoaderFacade og sender igen searchString videre. DatabaseLoaderFacade er den simple indgang til databseLoader, hvor Facaden kalder funktionen searchQueryToPersonList stadig med searchString som parameter. Denne funktion queryer så databasen ved at finde de tupler der minder som søgekriteriet searchString. Databasen returnerer derefter et ResultSet af tupler, som sendes tilbage til Factory gennem DatabaseLoader, og DatabaseLoaderFacade. Her begynder konstruktionen af objekterne. Factory starter et loop, der slutter når der ikke er flere tupler i ResultSettet. For hver tupel, kalder Factory mapPerson på Mapper og sender en tupel som parameter. Metoden mapPersons tager denne tupel, og instantierer et person-objekt som en IPerson. En produktion som denne person har været med på kaldes et job. Factory sender den nyligt instantierede person til databasen (ved samme flow som perons) og får returneret et ResultSet af Jobs der har personens personID. Factory starter igen et loop over alle tupler i ResultSettet og tilføjer et instantieret job til en Arrayliste som sættes til personens jobs variabel. Her er personen konstrueret færdig, og personen tilføjes til et liste af krediteringer, creditList. og loopet kører igen. Når der ikke er flere tupler, returneres creditList, først gennem PersonManager, til ApplicationManger der tilføjer listen med personer til en generel list af Krediteringer. Her vil ApplicationManager så søge efter de nadre typer af krediteringer, film og serier, og tilføje dem til listen også. Når dette er gjort, laves listen om til en ObservableList som returneres til SearchController som sætter et ListView på GUI til at vise denne Observable list, og her får aktøren så vist listen af krediteringer der svarer til deres søgning.
 
 \paragraph{Yderligere brugsmønsterrealisering} De yderligere brugsmønsterrealiseringer er lagt i bilag \textbf{(RET BILAG HER!!!!!!!!!)}
 
