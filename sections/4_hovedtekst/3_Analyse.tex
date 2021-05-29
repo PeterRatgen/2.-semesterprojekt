@@ -20,7 +20,16 @@ Analyse klassediagrammet ligger den grundlæggende struktur men er ikke nok til 
 
 \paragraph{B01: Registrering af kreditering} For at vise brugsmønsterrealisegingen af B01, tages der udgangspunkt i at tilføje en person. Operationerne vil stort set være det samme for andre typer af krediteringer, så derfor vises blot én af typerne for at visualisere det at registrere en kreditering.
 
-Figur \ref{fig:B01_Systemsekvensdiagram} viser et happy day scenarie for operationen addPerson. Når aktøren har interageret med systemet, skal der være tilføjet en ny person til filen eller Databasen. Der sendes navn ,beskrivelse, telefonnummer, personligtInfo og email. Dato indtastes ikke af brugeren, da systemet selv danner denne så der registreses den nøjagtige dato. Samtidig sættes approved variablen også automatisk til false, så den er klar til at blive tjekket igennem af en TV 2 moderator. Ud fra dette diagram dannes en operationskontrakt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.5]{images/B01SSD.png}
+    \caption{B01 Systemsekvensdiagram}
+    \label{fig:B01_Systemsekvensdiagram}
+\end{figure}
+
+Figur \ref{fig:B01_Systemsekvensdiagram} viser et happy day scenarie for operationen addPerson. Når aktøren har interageret med systemet, skal der være tilføjet en ny person til filen eller Databasen. Der sendes navn ,beskrivelse, telefonnummer, personligtInfo og email. Dato indtastes ikke af brugeren, da systemet selv danner denne så der registreses den nøjagtige dato. Samtidig sættes approved variablen også automatisk til false, så den er klar til at blive tjekket igennem af en TV 2 moderator. Derudover er der også en idTracker der sørger for at der ikke opstår duplikerede ID. Denne vil dog blive udfaste ved brug af en relationel database, da den vil kunne struktureres med unikke ID som primaryKeys.  Ud fra dette diagram dannes en operationskontrakt.
+
+
 
 \begin{table}[H]
 \centering
@@ -29,29 +38,42 @@ Figur \ref{fig:B01_Systemsekvensdiagram} viser et happy day scenarie for operati
         \textbf{Kontrakt} &  \\ \hline
         \textbf{Operation} & addPerson(...) \\ \hline
         \textbf{Refererer til} & Brugsmønster: B01 Registrering af kreditering \\ \hline
-        \textbf{Ansvar} & Ansvaret for denne operation er at at modtage en forespørgsel fra en bruger og vise de krediteringer der svarer til forespørgslen, for brugeren hvis:
+        \textbf{Ansvar} & Ansvaret for denne operation at oprette en kreditering af type person med de indtastede oplysninger givet af aktøren fra GUI siden af. Operationen kræver at:
         \begin{itemize}
-            \item Der eksisterer krediteringer der matcher brugerens forespørgsel
-            \item Den ønskede kreditering er godkendt af TV 2 moderatorer 
+            \item Akøtren der vil tilføje en person har tilladelse til at tilføje krediteringer
+            \item Der er indtastede informationer i de påkrævede felter. 
         \end{itemize}
-        Den liste som brugeren får vist, vil indeholde en mængde af krediteringer der passer til deres forespørgsel, og kunden kan her vælge en af disse krediteringer, og få yderligere information om den\\ \hline
-        \textbf{Prækonditioner} & Databasen indeholder data\\ \hline
+        Når aktøren er færdig med at indtaste informationerne og vælger at registrere krediteringen skrives dette til persistenslaget
+        \\ \hline
+        \textbf{Prækonditioner} & Aktøren er logget ind som en bruger der har rettigheder til at registrere krediteringer\\ \hline
         \textbf{Postkonditioner} &
-        Brugeren får vist en liste af krediteringer som matcher forespørgslen.\\ \hline
+        En ny kreditering af type person er tilføjet og ligger i persistenslaget. Denne kreditering er ikke godkendt.\\ \hline
     \end{tabular}
         \caption{Operationskontrakt for operationen addPerson}
         \label{tab:OperationsKontraktB01}
 \end{table}
 
+Kontrakten har belyst nogle punkter der ikke er inkluderet i analyse klassediagrammet. En aktør skal f.eks. kun kunne registrere krediteringer hvis det er en bruger der har rettigheder til dette. Derved skal der foregår en form for tjek et sted i programmet. Det kunne være en variabel der ligger et sted i programmet så GUI'en kan tjekke om brugeren har lov, eller overhovedet får vist muligheden for at registrere krediteringer. Kontrakten belyser også at krediteringen skal godkendes af en der ikke er aktøren der tilføjer krediteringen. Det giver anledning til at der er en bruger der har flere rettigheder.
  
-\begin{figure}[H]
+\begin{figure}
     \centering
-    \includegraphics[scale = 0.5]{images/B01SSD.png}
-    \caption{B01 Systemsekvensdiagram}
-    \label{fig:B01_Systemsekvensdiagram}
+    \includegraphics[scale = 0.37]{images/B01OSD.png}
+    \caption{Sekvensdiagram for operation på B01}
+    \label{fig:OperationsSekvensDiagramB01}
 \end{figure}
 
-\paragraph{B03: Foretage en søgning} Først foretages en brugsmønsterrealisering på brugsmønsteret B03 foretage en søgning. Først dannes der et systemsekvensdiagram. Dette giver et overblik over hvad målet er. Systemsekvensdiagrammet for B03 ses på firgur \ref{fig:SystemsekvensdiagramSearch} 
+Figur \ref{fig:OperationsSekvensDiagramB01} viser operationerne for at tilføje en person. Der er anvendt tre punktumer (...) i stedet for parameterene for at øge læsbarheden. Parameterene står oppe øverst i titlen på diagrammet. Som kontrakten på tabel \ref{tab:OperationsKontraktB01} angav, så forudsætter sekvensdiagrammet at aktøren er logget ind og har rettigheder. Hvis de har det, indtaster de informationerne i GUI, som videresendes til krediteringssystemControlleren der gennem Person klassen laver en ny instans, og returnerer denne til controlleren der sender personen videre til DatabaseLoaderen som skriver personen ind i filen/databasen.
+Denne brugsmønsterrealisering resulterede i flere brugbare inputs. Der skal laves adgangskontrol og nuværende bruger skal opbeværes i systemet. Det blev taget en beslutning om at lave om på navngivningen af klassen der indtil videre er refereret til som CreditSystemController/Krediteringssystem. Denne bliver omdøbt til ApplicationManager da det er denne der styre meget af logikken i applikationen. Denne kommer også til at opbevare nuværende brugertype så der kan tjekkes om brugeren har de rette rettigheder. Til at tjekket disse rettigheder blev det besluttet at aktøren slet ikke skal få vist muligheden for at tilføje krediteringer hvis de ikke at logget ind som en der har rettigheder. Dette giver anledning til en login controller der knytter sig til GUI og sætter og får brugertypen på ApplicationManager. De opdaterede elementer på klassediagram vil så se ud som vis på figur \ref{fig:AnalyseKlasseDiagramV2}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.4]{images/AnalyseKlasseDiagramV2.png}
+    \caption{Revideret analyse klassediagram}
+    \label{fig:AnalyseKlasseDiagramV2}
+\end{figure}
+
+\paragraph{B03: Foretage en søgning} Først dannes der et systemsekvensdiagram. Dette giver et overblik over hvad målet er. Systemsekvensdiagrammet for B03 ses på firgur \ref{fig:SystemsekvensdiagramSearch} 
 
 \begin{figure}[H]
     \centering
@@ -60,7 +82,8 @@ Figur \ref{fig:B01_Systemsekvensdiagram} viser et happy day scenarie for operati
     \label{fig:SystemsekvensdiagramSearch}
 \end{figure}
 
-Firgur \ref{fig:SystemsekvensdiagramSearch} viser at en aktør, her en bruger, bruger funktionen search på krediteringssystem som derefter returnerer en liste af krediteringer. Ud fra dette diagram blev der opsat en operationskontrakt over hvilket ansvar search operationen har. Denne operationskontrakt ses på tabel \ref{tab:OperationsKontraktB03}
+Firgur \ref{fig:SystemsekvensdiagramSearch} viser at en aktør, her en bruger, bruger funktionen search på krediteringssystem som derefter returnerer en liste af krediteringer. Dette er happy day scenariet hvor aktøren får vist en liste af krediteringer, hvor den kreditering de søger er inkluderet.
+Ud fra dette diagram blev der opsat en operationskontrakt over hvilket ansvar search operationen har. Denne operationskontrakt ses på tabel \ref{tab:OperationsKontraktB03}
 
 \begin{table}[H]
 \centering
@@ -83,9 +106,8 @@ Firgur \ref{fig:SystemsekvensdiagramSearch} viser at en aktør, her en bruger, b
         \label{tab:OperationsKontraktB03}
 \end{table}
 
-Tabel \ref{tab:OperationsKontraktB03} fortæller at ansvaret for search operationen er at finde de krediteringer der matcher brugerens forespørgsel, og returnere dem så de kan ses. Dette kræver at der er data det matcher i databasen som samtidig er godkendt af en TV 2 moderator.
-Herefter udarbejdede gruppen et sekvensdiagram for operationer inde i systemet. Først på figur \ref{fig:B03OSDit1} er resultatet for iteration 1, og derefter på figur \ref{fig:OperationsSekvensdiagramSearch} resultatet for iteration 2
-
+Tabel \ref{tab:OperationsKontraktB03} fortæller at ansvaret for search operationen er at finde de krediteringer der matcher brugerens forespørgsel, og returnere dem så de kan ses. Dette kræver at der er data det matcher i databasen som samtidig er godkendt af en TV 2 moderator. Der skal altså tilføjes funktonalistet til at tjekke om en kreditering er godkendt eller ej inden den vises. Instantieringen af objekter for at vise dem på GUI delen giver også anledning til nogle design valg. Man kunne instantiere dem med det samme man hente det fra databasen/filen, eller måske opbygge en service til instantieringen/konstruktionen af objekter. Kontrakten belyser i hvert fald flere muligheder i dette tilfælde
+Herefter udarbejdede gruppen et sekvensdiagram for operationer inde i systemet som kan ses på figur \ref{fig:B03OSDit1} 
 \begin{figure}[H]
     %\centering
 \centerline{\includegraphics[scale = 0.37]{images/B03OSDit1.png}}
