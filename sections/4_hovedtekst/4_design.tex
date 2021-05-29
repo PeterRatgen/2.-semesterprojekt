@@ -109,6 +109,44 @@ implementationen af et givent dataobjekt. Dermed kan implementationen af det
 underliggende dataobjekt ændre sig, selvom det tilbyder de samme operationer (da
 det stadig skal leve op til kontrakten).
 
+\subsubsection{Subsystemer}%
+\label{ssub:subsystemer}
+
+Dekomposition er en vigtig del af at dekonstruerere et større system ned i flere
+små dele. På denne måde bliver vores system mere håndtérbart. Subsystemer
+separeres med interfaces, således at de deles fra resten af systemet. Disse
+interfaces sørger for at der er en pålidelig kontaktflade med resten af
+programmet.
+
+I analyse klassediagrammet på figur \ref{fig:AnalyseKlasseDiagramV3} er klassen overdrevet komplekt. Der er svær at se sig ud af og har alt for mange ansvarsområder. Denne klasse kunne deles op i flere klasser der hver knytter siger til at arbejde (manage) en type af kreditering. Derved står ApplicationManager for at have styr på klasserne, og de yderligere klasser (managers) står for at have styr på de specifikke typer af krediteringer/dataobjekter. 
+
+Som det ses i pakkediagrammet på figur \ref{fig:PackageDiagram} 
+eksisterer der en \texttt{services} pakke. Denne pakke tilbyder services for
+hvert type af dataobjekt. Dette betyder at data for hvert dataobjekt er
+separeret fra \texttt{ApplicationManager}, således at GUI kan observere data fra
+præcis den nødvendige liste, og ikke har adgang til andre lister med data i
+klassen. På denne måde undgås en enkelt gudeklasse, der har adgang til al data,
+og de operationer der tilbydes på den givne data.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{umlpackage}{presentation}
+            \begin{umlpackage}{GUI}
+            \end{umlpackage}{GUI}
+        \end{umlpackage}
+        \begin{umlpackage}{domain}
+            \begin{umlpackage}[x=6]{services}
+            \end{umlpackage}
+        \end{umlpackage}
+    \umlassemblyconnector[interface=MovieManager, anchors=east and west]{GUI}{services}
+    \end{tikzpicture}
+    \caption{Interface mellem service og præsentationslaget}
+\end{figure}
+
+Yderligere valgte gruppen et design, der frakobler instantieringen af objekter fra DatabaseLoaderen, ved at lave en pakke/system der hedder objectMapping. Når en burger vælger at søge fra GUI kaldes en funktion search i applicationManager. Applicationmanager vil så sørge for at der bliver søgt på alle typer af objekter. Det vil sige den først f.eks. vil kalde PersonManager som vil søge efter krediteringer af typen Person. I første iteration blev disse person objekter instantieret direkte på DatabaseLoaderen. Men da objektKlasserne lå i domænelaget overholdte dette ikke  tre-lags-modllen, og samtidig ville det også skabe problemer, hvis vi i fremtiden ville tilføje flere variabler til et objekt da dette er tæt koblet. I stedet valgte gruppen at afkolbe denne instantiering af objekter. Det bringer os tilbage til objectMapping. Designet blev sådan, at når der søges, returnerer DatabaseLoader blot et ResultSet fra databasen, og så står objectMapping så for at iterere over dette ResultSet og instantiere objekter derfra. Derved ville man blot skulle ændre én klasse inde i objectMapping for at sørge for, nye variabler bliver medtaget.
+
+
 \subsubsection{Pakkediagram} Systemet er delt op i pakker efter præsentations-,
 domæne- og persistenslag. Ved denne opdeling kan det nemmere sikres at
 trelagsarkitekturen overholdes. Et pakkediagram blev opsat og kan ses på figur
@@ -137,43 +175,13 @@ af to ting:
         pakken object Mapping, som herefter kalder en 'get' funktion på
         Databaseloadeefacade som dernæst kalder den passende metode på
         Databaseloader der querier databasen, og returnerer resultaterne. Disse
-        resultater får object Mapping pakken, og indstanlierer objekter via data
+        resultater får object Mapping pakken, og indstanierer objekter via data
         pakken i domain.
 \end{itemize}
 
-\subsubsection{Subsystemer}%
-\label{ssub:subsystemer}
-
-Dekomposition er en vigtig del af at dekonstruerere et større system ned i flere
-små dele. På denne måde bliver vores system mere håndtérbart. Subsystemer
-separeres med interfaces, således at de deles fra resten af systemet. Disse
-interfaces sørger for at der er en pålidelig kontaktflade med resten af
-programmet.
-
-Som det ses i pakkediagrammet på figur \ref{fig:PackageDiagram} 
-eksisterer der en \texttt{services} pakke. Denne pakke tilbyder services for
-hvert type af dataobjekt. Dette betyder at data for hvert dataobjekt er
-separeret fra \texttt{ApplicationManager}, således at GUI kan observere data fra
-præcis den nødvendige liste, og ikke har adgang til andre lister med data i
-klassen. På denne måde undgås en enkelt gudeklasse, der har adgang til al data,
-og de operationer der tilbydes på den givne data.
+Gruppen valgte at lave en facade til DatabaseLoader, hvor al kommunikation med DatabaseLoader skal ske igennem. DatabaseLoaderFacade har bl.a. flere overloadede metoder ved navn putInDatabse som tager forskellige typer af objekter, alt efter hvad brugeren vælger at tilføje. Dette gør det nemt at lave funktioner der skal skrive til databasen, da der ikke er 10 forskellige funktioner man skal huske navnene på, men blot kan kalde 'put' metoden med en type af objekt, og så kalder facaden selv den rigtige metode i DatabaseLoader
 
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{umlpackage}{presentation}
-            \begin{umlpackage}{GUI}
-            \end{umlpackage}{GUI}
-        \end{umlpackage}
-        \begin{umlpackage}{domain}
-            \begin{umlpackage}[x=6]{services}
-            \end{umlpackage}
-        \end{umlpackage}
-    \umlassemblyconnector[interface=MovieManager, anchors=east and west]{GUI}{services}
-    \end{tikzpicture}
-    \caption{Interface mellem service og præsentationslaget}
-\end{figure}
 
 
 
@@ -184,4 +192,13 @@ og de operationer der tilbydes på den givne data.
 
 \subsubsection{Systemsekvensdiagrammer}%
 \label{ssub:systemsekvensdiagrammer}
+Ved brug af dette design, dannede gruppen et meget detaljeret sekvensdiagram over B03: Foretage en søgning, for at visualisere flowet i programmet som kan ses på figur \ref{fig:B03OSDDesign}
 
+\begin{figure}
+    %\centering
+    \makebox[\textwidth][c]{\includegraphics[width=1.25\textwidth]{images/B03OSDDesign.png}}
+    \caption{Design sekvensdiagram for search funktionaliteten}
+    \label{fig:B03OSDDesign}
+\end{figure}
+
+Operations sekvensdiagrammet på figur \ref{fig:B03OSDDesign} viser hvilke klasser som systemet går igennem for at lave en søgning. Det starter med at aktøren indtaster sine søgekriterier og trykker søg på GUI'en. Dette kalder funktionen search som tager en string som parameter. Search kalder funktionen setContent på SearchController klassen, som har til ansvar at få en liste fra searchString og vise den liste på GUI. SearchController kalder så funktionen search på application manager, som tager searchString og søger efter de forskellige typer af krediteringer. I dette eksempel vises kun søgningen efter personer, men flowet er det samme for film og serier, og derfor er de ikke medtaget i diagrammet. Application manager kalder searchPerson på PersonManager. PersonManager står for mange af funktonerne på objekter af typen Person. Personmanager kalder derefter getPersons på Factory. Factory er den klasse der står for at afgøre objekter der skal konstrueres og hvor data skal hentes fra. Factory kalder så searchPersonsFromDatabase på DatabaseLoaderFacade og sender igen searchString videre. DatabaseLoaderFacade er den simple indgang til databseLoader, hvor Facaden kalder funktionen searchQueryToPersonList stadig med searchString som parameter. Denne funktion queryer så databasen ved at finde de tupler der minder som søgekriteriet searchString. Databasen returnerer derefter et ResultSet af tupler, som sendes tilbage til Factory gennem DatabaseLoader, og DatabaseLoaderFacade. Her begynder konstruktionen af objekterne. Factory starter et loop, der slutter når der ikke er flere tupler i ResultSettet. For hver tupel, kalder Factory mapPerson på Mapper og sender en tupel som parameter. Metoden mapPersons tager denne tupel, og instantierer et person-objekt som en IPerson. En produktion som denne person har været med på kaldes et job. Factory sender den nyligt instantierede person til databasen (ved samme flow som perons) og får returneret et ResultSet af Jobs der har personens personID. Factory starter igen et loop over alle tupler i ResultSettet og tilføjer et instantieret job til en Arrayliste som sættes til personens jobs variabel. Her er personen konstrueret færdig, og personen tilføjes til et liste af krediteringer, creditList. og loopet kører igen. Når der ikke er flere tupler, returneres creditList, først gennem PersonManager, til ApplicationManger der tilføjer listen med personer til en generel list af Krediteringer. Her vil ApplicationManager så søge efter de nadre typer af krediteringer, film og serier, og tilføje dem til listen også. Når dette er gjort, laves listen om til en ObservableList som returneres til SearchController som sætter et ListView på GUI til at vise denne Observable list, og her får aktøren så vist listen af krediteringer der svarer til deres søgning.
