@@ -19,7 +19,6 @@
 \usepackage{listingsutf8}
 \usepackage{enumitem}
 \usepackage[left=3cm, right=3cm, top=3cm, bottom=3cm]{geometry}
-%\usepackage[a4paper, top = 1in, bottom = 1in, left=1.5in,right=1.5in]{geometry}
 \usepackage[backend=biber, citestyle=ieee]{biblatex}
 \usepackage{csquotes}
 \usepackage{appendix}
@@ -34,6 +33,14 @@
 \usetikzlibrary{positioning}
 \usetikzlibrary{arrows}
 \tikzset{baseline,every tree node/.style={align=center,anchor=north}}
+
+\lstset{
+  inputencoding=utf8/latin1,
+  basicstyle=\ttfamily\small,
+  language=Java,
+  keywordstyle=\color{blue}\bfseries,
+  rulecolor=\color{black}
+}
 
 \bibliography{Bibliography.bib}
 
