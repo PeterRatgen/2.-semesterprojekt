@@ -149,6 +149,7 @@ og de operationer der tilbydes på den givne data.
     \caption{Interface mellem service og præsentationslaget}
 \end{figure}
 
+
 Yderligere valgte gruppen et design, der frakobler instantieringen af objekter
 fra DatabaseLoaderen, ved at lave en pakke/system der hedder objectMapping. Når
 en burger vælger at søge fra GUI kaldes en funktion search i applicationManager.
@@ -156,13 +157,13 @@ en burger vælger at søge fra GUI kaldes en funktion search i applicationManage
 objekter. Det vil sige den først f.eks. vil kalde PersonManager som vil søge
 efter krediteringer af typen Person. I første iteration blev disse person
 objekter instantieret direkte på DatabaseLoaderen. Men da objektKlasserne lå i
-domænelaget overholdte dette ikke  tre-lags-modllen, og samtidig ville det også
-skabe problemer, hvis vi i fremtiden ville tilføje flere variabler til et objekt
-da dette er tæt koblet. I stedet valgte gruppen at afkolbe denne instantiering
-af objekter. Det bringer os tilbage til objectMapping. Designet blev sådan, at
-når der søges, returnerer DatabaseLoader blot et ResultSet fra databasen, og så
-står objectMapping så for at iterere over dette ResultSet og instantiere
-objekter derfra. Derved ville man blot skulle ændre én klasse inde i
+domænelaget overholdt dette ikke  tre-lags-modellen, og samtidig ville det også
+skabe problemer, hvis der i fremtiden skulle tilføjes flere variabler til et
+objekt da dette er tæt koblet. I stedet valgte gruppen at afkoble denne
+instantiering af objekter. Det bringer os tilbage til objectMapping. Designet
+blev sådan, at når der søges, returnerer DatabaseLoader blot et ResultSet fra
+databasen, og så står objectMapping så for at iterere over dette ResultSet og
+instantiere objekter derfra. Derved ville man blot skulle ændre én klasse inde i
 objectMapping for at sørge for, nye variabler bliver medtaget.
 
 
