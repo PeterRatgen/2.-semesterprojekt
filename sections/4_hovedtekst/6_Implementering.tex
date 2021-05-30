@@ -94,7 +94,7 @@ applicatioManager, der ænder noget data nede i databasen (Model i mønsteret). 
 denne liste har en listener på ændringer i data indeholdt i listen, notificerer
 ændringen af data denne listener, som får viewet til at opdatere, så brugeren nu
 ser det opdaterede data.  Tilføjelsen af en listener til en observableList kan
-ske på følgende som det ses på figur \textbf{RET REFERENCE}
+ske på følgende som det ses på listing \ref{lst:setContent}
 
 JavaFX library'et indeholer en typer af lister kaldet ObservableLists. Observable lister fungerer som de flereste andre lister, og kan instantieres som bl.a. en observable ArrayList. Det specielle ved ObservableLister er at man kan tilføje "Listeners". Listeners er som navnet angiver, en enhed der kan "lytte" efter ændringer på objekterne som listerne indeholder. Lad os sige brugeren får præsenteret en liste af personer. Dette er viewet i modellen. Her vælger brugeren så at godkende en person. Den handling registrerer en controller (Controller i mønsteret) og i programmet kalder controlleren en funktion i applicatioManager, der ænder noget data nede i databasen (Model i mønsteret). Da denne liste har en listener på ændringer i data indeholdt i listen, notificerer ændringen af data denne listener, som får viewet til at opdatere, så brugeren nu ser det opdaterede data.
 Tilføjelsen af en listener til en observableList kan implementeres som det ses på Listing \ref{lst:setContent}.
