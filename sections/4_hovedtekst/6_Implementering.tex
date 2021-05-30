@@ -30,7 +30,53 @@ SearchList.setItems(ApplicationManager.getInstance().search(searchString));
 
 hvorpå at \texttt{ApplicationManager} i domænelaget står for at facilitere
 søgningen, ved at kalde de korrekte Managers for at lave søgningen. Her bliver
-\texttt{PersonManager} kaldt, hvorpå 
+\texttt{PersonManager} kaldt, hvorefter den kalder på \texttt{Factory}, som står
+for kommunikationen med persistenslaget (ved at kalde
+\texttt{DatabaseLoaderFacade}), for at de korrekte dataobjekter bliver
+instantieret med den returnerede data. 
+
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, firstnumber=31, caption=Forspørgsel til
+persistenslaget og konstruktion af dataobjekter (\texttt{Factory.java})]
+public ObservableList<IPerson> getPersons(String searchString) {
+  ObservableList<IPerson> personObservableList 
+    = FXCollections.observableArrayList();
+    ResultSet personsResultSet 
+        = DatabaseLoaderFacade.getInstance().searchPersonsFromDatabase(searchString);
+    try {
+        while (personsResultSet.next()) {
+            IPerson tempPerson 
+                = Mapper.getInstance().mapPerson(personsResultSet);
+\end{lstlisting}
+
+\texttt{DatabaseLoaderFacade}, kalder \texttt{DatabaseLoader} som queryer
+databasen. Funktionen \texttt{searchQueryToPersonList} har
+\texttt{package-private}(som er standard) indkapsling. Således at dens
+funktionalitet kan anvendes af \texttt{DatabaseLoaderFacade}, men ikke kan
+tilgås udenfor pakken. 
+
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, firstnumber=42,
+caption=Query af databasen for personer (\texttt{DatabaseLoader.java})]
+ResultSet searchQueryToPersonList(String searchString) {
+  ArrayList<IPerson> personObservableList = new ArrayList<>();
+  try {
+    PreparedStatement queryStatement = getInstance().connection.prepareStatement(
+      "SELECT * FROM credits, persons WHERE LOWER(name) LIKE LOWER(?) " +
+        "AND credits.credit_id = persons.credit_id " /* +
+        "AND jobs.person_id = persons.person_id " +
+        "AND jobs.job_role_id = job_roles.job_role_id" */
+    );
+    queryStatement.setString(1, "%" + searchString + "%");
+    queryStatement.executeQuery();
+
+    return queryStatement.getResultSet();
+\end{lstlisting}
+
+Her i \texttt{DatabaseLoader} laves der en query til databasen, for personer
+hvis navn ligner søgestrengen, samt hvilke jobs den fundne person har haft.
+
+
+
+
 
 \subsubsection{Overholdelse af Model-View-Controller mønsteret} Hvordan sikrer gruppen at benytte sig effektivt af Model-View-Controller mønsteret? 
 JavaFX library'et indeholer en typer af lister kaldet ObservableLists.
