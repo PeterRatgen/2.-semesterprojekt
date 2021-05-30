@@ -35,7 +35,8 @@ for kommunikationen med persistenslaget (ved at kalde
 \texttt{DatabaseLoaderFacade}), for at de korrekte dataobjekter bliver
 instantieret med den returnerede data. 
 
-\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, firstnumber=31, caption=Forspørgsel til
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize, firstnumber=31,
+label=lis:factory, caption=Forspørgsel til
 persistenslaget og konstruktion af dataobjekter (\texttt{Factory.java})]
 public ObservableList<IPerson> getPersons(String searchString) {
   ObservableList<IPerson> personObservableList 
@@ -74,9 +75,11 @@ ResultSet searchQueryToPersonList(String searchString) {
 Her i \texttt{DatabaseLoader} laves der en query til databasen, for personer
 hvis navn ligner søgestrengen, samt hvilke jobs den fundne person har haft.
 
-
-
-
+Resultatet af denne query (hvis den var succesfuld), returneres til domænelaget,
+hvor \texttt{Factory} kalder \texttt{Mapper} (som tidligere set i
+Listing~\ref{lis:factory}). \texttt{Mapper} tager et \texttt{ResultSet} og
+returner en instans af \texttt{IPerson}. Dermed instantieres dataobjekter kun i
+\texttt{Mapper}, og hvordan dette gøres skjules for resten af lagene.
 
 \subsubsection{Overholdelse af Model-View-Controller mønsteret} Hvordan sikrer gruppen at benytte sig effektivt af Model-View-Controller mønsteret? 
 JavaFX library'et indeholer en typer af lister kaldet ObservableLists.
