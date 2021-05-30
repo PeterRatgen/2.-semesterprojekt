@@ -1,6 +1,6 @@
 \subsection{Design}
 
-Formålet med dette kapitel er at planlægge løsningen, ud fra de krav der der er
+Formålet med dette kapitel er at planlægge løsningen, ud fra de krav der er
 stillet, sammenholdt med erfaringerne fra analysen.
 
 %Skal indeholde Overvejelser, beslutninger og resultater vedr.
@@ -11,9 +11,7 @@ stillet, sammenholdt med erfaringerne fra analysen.
 %i denne sektion beskrives vores tre-lags arkitektur.
 %Lokalisering af ændringer
 
-Kravet om en trelagsarkitektur (IF-01) er markeret om et "must" i prioriteringen af
-krav. I FURPS+ analysen er kravet placeret som en "Design constraint", da dette
-stiller et krav til designet af systemets arkitektur. 
+Kravet om en trelagsarkitektur, som er sat af SDU er i FURPS+ analysen placeret som en "Design constraint", da dette stiller et krav til designet af systemets arkitektur. 
 
 %Hvordan kan lagene separeres? 
 
@@ -26,7 +24,7 @@ at kende til selve implementationen af interfacet.
 
 \paragraph{Separation mellem præsentationslaget og domænelaget}
 
-Et designmønster der er en oplagt som en del af trelagsarkitekturen er
+Et designmønster der er oplagt som en del af trelagsarkitekturen er
 designmønsteret 'Model-View-Controller'\cite[p. 176]{} . Dette designmønster er struktureret
 således:
 
@@ -78,7 +76,7 @@ Det vil sige at præsentations- og domænelaget separeres. View \emph{observerer
 data der holdes i modellen. View præsenterer det data der holdes i modellen til
 brugeren. Dette gør at data kan ændre sig uafhængigt af præsentationen, siden
 præsentationslaget udelukkende observerer data.  Controlleren står for at
-respondere på der sker i view, fx hvis en bruger klikker på et element der skal
+respondere på der sker i view, f.eks. hvis en bruger klikker på et element der skal
 starte et nyt view, da står den for det sætte det nye view til at blive vist.
 Den står også for at håndtere hvad der gøres når der klikkes på et given element
 i viewet.  Modellen repræsenterer de to andre lag, forretningslogiklaget og
@@ -86,23 +84,22 @@ persistenslaget, og står derved for håndtere og manipulere med data.
 
 \paragraph{Separation mellem domænelaget og persistenslaget}
 
-For at separere domænelaget persistenslaget, man der anvendes andet
+For at separere domænelaget og persistenslaget anvendes der et andet
 designmønster. Generelt set kan man sige at domænelaget anvender
 persistenslaget. For at simplificere kommunikationen mellem domænelaget og
-persistenslaget kan vi anvende én klasse til at interagere med persistenslaget.
+persistenslaget kan der anvendes én klasse til at interagere med persistenslaget.
 Dette designmønster kaldes "Facade"-designmønsteret. Denne facadeklasse skjuler
 den konkrete implementation af persistenslaget.
 
 For at specificere en egentlig kontrakt, som persistenslaget skal leve op til
-kan der specificeres et interface, for de operationer som persistenslaget skal
-tilbyde.
+kan der med fordel specificeres et interface, for de operationer som persistenslaget skaltilbyde.
 
 \paragraph{Abstraktion af dataobjekter}
-
-Selv om systemets opdeles i tre lag, skal data stadig kunne flyde i mellem de
+                                                        %flyde mellem lag?
+Selv om systemets opdeles i tre lag, skal data stadig kunne flyde imellem de
 tre lag. Her er det vigtigt at de samme dataobjekter anvendes i alle lag. For at
-sikre at et lag (fx præsentationslaget) kan anvende af et dataobjekt skal der
-specificeres en kontrakt der stille krav for implementationen af hvert
+sikre at et lag (f.eks. præsentationslaget) kan anvende et dataobjekt skal der
+specificeres en kontrakt der stiller krav for implementationen af hvert
 dataobjekt. Præsentationslaget kan derfor nu afhænge af interfacet(kontrakten)
 og de metoder denne tilbyder, i stedet for at afhænge direkte på
 implementationen af et givent dataobjekt. Dermed kan implementationen af det
@@ -114,15 +111,15 @@ det stadig skal leve op til kontrakten).
 
 Dekomposition er en vigtig del af at dekonstruerere et større system ned i flere
 små dele. På denne måde bliver vores system mere håndtérbart. Subsystemer
-separeres med interfaces, således at de deles fra resten af systemet. Disse
+separeres med interfaces, således at de skilles fra resten af systemet. Disse
 interfaces sørger for at der er en pålidelig kontaktflade med resten af
 programmet.
 
-I analyse klassediagrammet på figur \ref{fig:AnalyseKlasseDiagramV3} er klassen overdrevet komplekt. Der er svær at se sig ud af og har alt for mange ansvarsområder. Denne klasse kunne deles op i flere klasser der hver knytter siger til at arbejde (manage) en type af kreditering. Derved står ApplicationManager for at have styr på klasserne, og de yderligere klasser (managers) står for at have styr på de specifikke typer af krediteringer/dataobjekter. 
+I analyse klassediagrammet på figur \ref{fig:AnalyseKlasseDiagramV3} er klassen uhensigtsmæssig kompleks. Den er svær at se sig ud af og har alt for mange ansvarsområder. Denne klasse kunne deles op i flere klasser, der hver knytter sig til at arbejde, (manage) en type af kreditering. Derved står ApplicationManager for at have styr på klasserne, og de yderligere klasser (managers), står for at have styr på de specifikke typer af krediteringer/dataobjekter. 
 
 Som det ses i pakkediagrammet på figur \ref{fig:PackageDiagram} 
 eksisterer der en \texttt{services} pakke. Denne pakke tilbyder services for
-hvert type af dataobjekt. Dette betyder at data for hvert dataobjekt er
+hvert type dataobjekt. Dette betyder at data for hvert dataobjekt er
 separeret fra \texttt{ApplicationManager}, således at GUI kan observere data fra
 præcis den nødvendige liste, og ikke har adgang til andre lister med data i
 klassen. På denne måde undgås en enkelt gudeklasse, der har adgang til al data,
