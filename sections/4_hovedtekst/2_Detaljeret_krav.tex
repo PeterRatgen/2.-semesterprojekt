@@ -34,7 +34,7 @@ Ud fra de overordnede krav er enkelte krav/brugsmøsntre udvalgt til en mere det
     \end{enumerate}  \\ \hline
 \textbf{Postkonditioner:} Showet står som "ikke godkendt" indtil en ansat fra TV 2 har kvalitetstjekket indholdet og godkendt det. \\\hline
 \textbf{Alternative hændelsesforløb:} Skridt 4. Ved tilføjelse af personer, der ikke allerede eksisterer i databasen, får opretteren mulighed for tilføjelse af den nye person ved et pop-up vindue, for yderligere specificering se B02 - Oprettelse af person. \\\hline
-    \caption{Detaljeret brugsmønster over B03}
+    \caption{Detaljeret brugsmønster over B01}
     \label{tab:Detaljeret_brugsmønsterdiagram_B03}
 \end{longtable}
 
@@ -62,7 +62,7 @@ Ud fra de overordnede krav er enkelte krav/brugsmøsntre udvalgt til en mere det
 \begin{itemize}
     \item Skridt 5: Hvis brugeren ikke kan finde den ønskede kreditering kan de fortage endnu en søgning eller opgive
 \end{itemize}\\ \hline
-    \caption{Detaljeret brugsmønster over B01}
+    \caption{Detaljeret brugsmønster over B03}
     \label{tab:Detaljeret_brugsmønsterdiagram_B01}
 
 \end{longtable}
@@ -76,6 +76,22 @@ En detaljeret beskrivelse af de supplerende krav kan med fordel stilles op ved h
 \begin{itemize}
     \item \textbf{Reliability} \newline
     Under dette punkt placeres de krav, som bliver sat til pålideligheden af programmet. I vores tilfælde har vi 2 krav, som omhandler oppetid og sikkerhed for programmet. 
+    
+    \begin{longtable}{|p{30mm}|p{90mm}|}
+        \hline
+            Oppetid &  TV 2 har et krav om at systemet har en oppetid på 99,7 - 99,8\% .
+        \\ \hline
+            Sikkerhed & TV 2 stiller et meget stærkt krav om, at der er styr på, at al data i systemet er korrekt, da data skal anvendes for at sikre, at krediterede personer får den betaling, de har ret til.
+        \\ \hline
+        
+    \caption{Supplerende krav - Reliability}
+    \label{tab:Reliablity}
+    
+    \end{longtable}
+    
+  
+\begin{comment}  %almindeligt table af overstående
+                
         \begin{table}[H]
         \centering
         \begin{tabular}{|p{30mm}|p{90mm}|}
@@ -88,6 +104,8 @@ En detaljeret beskrivelse af de supplerende krav kan med fordel stilles op ved h
             \caption{Supplerende krav - Reliability}
             \label{tab:Reliablity}
         \end{table}
+\end{comment}
+        
     
     \item \textbf{Performance} \newline
     Til dette punkt har vi et enkelt krav, som ikke er yderligere specificeret end, at programmet skal have en svartid der er så lav som muligt.
