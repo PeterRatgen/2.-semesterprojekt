@@ -79,27 +79,28 @@ Resultatet af denne query (hvis den var succesfuld), returneres til domænelaget
 hvor \texttt{Factory} kalder \texttt{Mapper} (som tidligere set i
 Listing~\ref{lis:factory}). \texttt{Mapper} tager et \texttt{ResultSet} og
 returner en instans af \texttt{IPerson}. Dermed instantieres dataobjekter kun i
-\texttt{Mapper}, og hvordan dette gøres skjules for resten af lagene.
+\texttt{Mapper}, således skjules instantieringen for resten af lagene.
 
-\subsubsection{Overholdelse af Model-View-Controller mønsteret} Hvordan sikrer gruppen at benytte sig effektivt af Model-View-Controller mønsteret? 
-JavaFX library'et indeholer en typer af lister kaldet ObservableLists.
-Observable lister fungerer som de flereste andre lister, og kan instantieres som
-bl.a. en observable ArrayList. Det specielle ved ObservableLister er at man kan
-tilføje "Listeners". Listeners er som navnet angiver, en enhed der kan "lytte"
-efter ændringer på objekterne som listerne indeholder. Lad os sige brugeren får
-præsenteret en liste af personer. Dette er viewet i modellen. Her vælger
-brugeren så at godkende en person. Den handling registrerer en controller
-(Controller i mønsteret) og i programmet kalder controlleren en funktion i
-applicatioManager, der ænder noget data nede i databasen (Model i mønsteret). Da
-denne liste har en listener på ændringer i data indeholdt i listen, notificerer
-ændringen af data denne listener, som får viewet til at opdatere, så brugeren nu
-ser det opdaterede data.  Tilføjelsen af en listener til en observableList kan
-ske på følgende som det ses på figur \textbf{RET REFERENCE}
+\subsubsection{Implementering af Model-View-Controller mønsteret} 
+%Hvordan sikrer gruppen at benytte sig effektivt af Model-View-Controller mønsteret?
+\texttt{JavaFX}
+libraryet indeholer en type af liste der kaldes \texttt{ObservableList}.  En
+\texttt{Observablelist} fungerer som en almindelig \texttt{List<E>}, og kan
+instantieres som bl.a. en \texttt{observableArrayList}. Det specielle ved en
+\texttt{ObservableList} er at man kan tilføje en 'Listener'. En Listener er som
+navnet angiver, en enhed der kan "lytte" efter ændringer på objekterne som
+listerne indeholder. Lad os sige brugeren får præsenteret en liste af personer.
+Dette er viewet i modellen. Her vælger brugeren så at godkende en person. Den
+handling registrerer en controller (controller i mønsteret) og i programmet
+kalder controlleren en funktion i \texttt{ApplicationManager}, der ændrer 
+data nede i databasen (model i mønsteret). Da denne liste har en listener på
+ændringer i data indeholdt i den pågældende \texttt{ObservableList}, notificrer
+listener, som får viewet til at opdatere, så brugeren nu ser det opdaterede
+data.  Tilføjelsen af en listener til en observableList er implementeret som
+det ses på Listing \ref{lst:setContent}.
 
-JavaFX library'et indeholer en typer af lister kaldet ObservableLists. Observable lister fungerer som de flereste andre lister, og kan instantieres som bl.a. en observable ArrayList. Det specielle ved ObservableLister er at man kan tilføje "Listeners". Listeners er som navnet angiver, en enhed der kan "lytte" efter ændringer på objekterne som listerne indeholder. Lad os sige brugeren får præsenteret en liste af personer. Dette er viewet i modellen. Her vælger brugeren så at godkende en person. Den handling registrerer en controller (Controller i mønsteret) og i programmet kalder controlleren en funktion i applicatioManager, der ænder noget data nede i databasen (Model i mønsteret). Da denne liste har en listener på ændringer i data indeholdt i listen, notificerer ændringen af data denne listener, som får viewet til at opdatere, så brugeren nu ser det opdaterede data.
-Tilføjelsen af en listener til en observableList kan implementeres som det ses på Listing \ref{lst:setContent}.
-
-\begin{lstlisting}[language=Java, label=lst:setContent, caption = setContent]
+\begin{lstlisting}[language=Java, label=lst:setContent, caption = Funktionen
+setContet sætter listen og hvordan denne opdateres]
 private void setContent(AnchorPane listToApprove, ObservableList<? extends ICredit> creditList){
     int offset = 20;
     for (ICredit credit : creditList){
@@ -128,4 +129,14 @@ private void setContent(AnchorPane listToApprove, ObservableList<? extends ICred
     });
 \end{lstlisting}
 
-Metoden setConten tager et AnchorPane og en ObservableList som argumenter. Først tjekkes de credtis som listen indeholde igennem, og hvis de ikke er godkendt/approved bliver de tilføjet til det medfølgende AnchorPane, som skal indeholde de krediteringer som ikke er godkendt. Når der er itereret over alle krediteringer i listen, bliver der tilføjet en listener til listen som starter ved linje 9 i listing \ref{lst:setContent}. Listeneren lytter efter to ting. Om der bliver tilføjet til listen, linje 12, og om der bliver fjernet fra listen, linje 19. Hvis der bliver tilføjet til listen, tilføjes det nye element automatisk til det AnchorPane som method har taget som argument. Hvis der fjernes fra listen, fjernes dette element fra dette AnchorPane.
+Metoden \texttt{setContent} tager et \texttt{AnchorPane} og en
+\texttt{ObservableList} som argumenter. Først tjekkes de \texttt{ICredit} som
+listen indeholder igennem, og hvis de ikke er godkendt/approved bliver de
+tilføjet til det medfølgende \texttt{AnchorPane}, som skal indeholde de krediteringer som
+ikke er godkendt. Når der er itereret over alle krediteringer i listen, bliver
+der tilføjet en listener til listen som starter ved linje 9 i listing
+\ref{lst:setContent}. Listeneren lytter efter to ting. Om der bliver tilføjet
+til listen, linje 12, og om der bliver fjernet fra listen, linje 19. Hvis der
+bliver tilføjet til listen, tilføjes det nye element automatisk til det
+\texttt{AnchorPane} som methoden har taget som argument. Hvis der fjernes fra listen,
+fjernes dette element fra dette \texttt{AnchorPane}.
