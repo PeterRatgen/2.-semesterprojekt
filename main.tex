@@ -35,12 +35,29 @@
 \usetikzlibrary{arrows}
 \tikzset{baseline,every tree node/.style={align=center,anchor=north}}
 
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
 \lstset{
-  inputencoding=utf8/latin1,
-  basicstyle=\ttfamily\small,
-  language=Java,
-  keywordstyle=\color{blue}\bfseries,
-  rulecolor=\color{black}
+    inputencoding=utf8/latin1,
+    basicstyle=\ttfamily\small,
+    language=Java,
+    keywordstyle=\color{blue}\bfseries,
+    rulecolor=\color{black},
+    keywordstyle=\color{javapurple}\bfseries,
+    stringstyle=\color{javared},
+    commentstyle=\color{javagreen},
+    morecomment=[s][\color{javadocblue}]{/**}{*/},
+    numbers=left,
+    numberstyle=\tiny\color{black},
+    stepnumber=1,
+    numbersep=10pt,
+    showspaces=false,
+    showstringspaces=false,   
+    tabsize=2
 }
 
 \bibliography{Bibliography.bib}

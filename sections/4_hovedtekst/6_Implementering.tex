@@ -33,31 +33,21 @@ søgningen, ved at kalde de korrekte Managers for at lave søgningen. Her bliver
 \texttt{PersonManager} kaldt, hvorpå 
 
 \subsubsection{Overholdelse af Model-View-Controller mønsteret} Hvordan sikrer gruppen at benytte sig effektivt af Model-View-Controller mønsteret? 
-JavaFX library'et indeholer en typer af lister kaldet ObservableLists. Observable lister fungerer som de flereste andre lister, og kan instantieres som bl.a. en observable ArrayList. Det specielle ved ObservableLister er at man kan tilføje "Listeners". Listeners er som navnet angiver, en enhed der kan "lytte" efter ændringer på objekterne som listerne indeholder. Lad os sige brugeren får præsenteret en liste af personer. Dette er viewet i modellen. Her vælger brugeren så at godkende en person. Den handling registrerer en controller (Controller i mønsteret) og i programmet kalder controlleren en funktion i applicatioManager, der ænder noget data nede i databasen (Model i mønsteret). Da denne liste har en listener på ændringer i data indeholdt i listen, notificerer ændringen af data denne listener, som får viewet til at opdatere, så brugeren nu ser det opdaterede data.
-Tilføjelsen af en listener til en observableList kan ske på følgende som det ses på figur \textbf{RET REFERENCE}
+JavaFX library'et indeholer en typer af lister kaldet ObservableLists.
+Observable lister fungerer som de flereste andre lister, og kan instantieres som
+bl.a. en observable ArrayList. Det specielle ved ObservableLister er at man kan
+tilføje "Listeners". Listeners er som navnet angiver, en enhed der kan "lytte"
+efter ændringer på objekterne som listerne indeholder. Lad os sige brugeren får
+præsenteret en liste af personer. Dette er viewet i modellen. Her vælger
+brugeren så at godkende en person. Den handling registrerer en controller
+(Controller i mønsteret) og i programmet kalder controlleren en funktion i
+applicatioManager, der ænder noget data nede i databasen (Model i mønsteret). Da
+denne liste har en listener på ændringer i data indeholdt i listen, notificerer
+ændringen af data denne listener, som får viewet til at opdatere, så brugeren nu
+ser det opdaterede data.  Tilføjelsen af en listener til en observableList kan
+ske på følgende som det ses på figur \textbf{RET REFERENCE}
 
-
-\definecolor{javared}{rgb}{0.6,0,0} % for strings
-\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
-\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
-\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
- 
-\lstset{language=Java,
-basicstyle=\ttfamily,
-keywordstyle=\color{javapurple}\bfseries,
-stringstyle=\color{javared},
-commentstyle=\color{javagreen},
-morecomment=[s][\color{javadocblue}]{/**}{*/},
-numbers=left,
-numberstyle=\tiny\color{black},
-stepnumber=1,
-numbersep=10pt,
-tabsize=4,
-showspaces=false,
-showstringspaces=false}
-
-
-\begin{lstlisting}[language=Java, label=lst:setContent, caption = set]
+\begin{lstlisting}[caption = set]
     private void setContent(AnchorPane listToApprove, ObservableList
     <? extends ICredit> creditList){
         int offset = 20;
