@@ -1,5 +1,8 @@
 \subsection{Database Design}
-Databasen bestod i første iteration af individuelle TXT filer som blev brug som CSV filer. Dette lod os dele dataen op i de forskellige typer af objekter vi gerne ville have opbevaret, f.eks. Episode, Person og Movie, så hver type fik sin egen fil. På den måde undgik vi at indlæse alt vores data når vi skulle have fat i noget specifikt, og dermed spare ressourcer i form af tid og lagring.
+Databasen bestod i første iteration af individuelle TXT filer som blev brugt som CSV filer. Dette lod os dele dataen op i de forskellige typer af objekter vi gerne ville have opbevaret, f.eks. Episode, Person og Movie, så hver type fik sin egen fil. På den måde undgik vi at indlæse alt vores data når vi skulle have fat i noget specifikt, og dermed spare ressourcer i form af tid og lagring.
+
+\begin{comment}
+
 
 \begin{figure}[H]
     \centering
@@ -7,4 +10,13 @@ Databasen bestod i første iteration af individuelle TXT filer som blev brug som
 \caption{Database i form af tekst filer}
 \end{figure}
 
-I anden iteration er der gjort brug af en SQL relationel database, på baggrund af kravene til anden iteration. 
+\end{comment}
+
+I anden iteration er der gjort brug af en SQL relationel database, på baggrund af kravene til anden iteration. Ud fra de objekter der findes i systemet har gruppen udarbejdet et UML diagram over databasedesignet, på en sådan måde at det som minimum opfylder 3. normalform. 
+
+\begin{figure}[H]
+    \centering
+    \makebox[\textwidth][c]{\includegraphics[width=1.25\textwidth]{images/Database design.png}}
+    \caption{UML diagram over databasen}
+    \label{fig:databaseUML}
+\end{figure}
