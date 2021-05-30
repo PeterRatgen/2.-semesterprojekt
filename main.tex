@@ -35,6 +35,8 @@
 \usetikzlibrary{arrows}
 \tikzset{baseline,every tree node/.style={align=center,anchor=north}}
 
+\begin{comment}
+
 \lstset{
   inputencoding=utf8/latin1,
   basicstyle=\ttfamily\small,
@@ -42,6 +44,39 @@
   keywordstyle=\color{blue}\bfseries,
   rulecolor=\color{black}
 }
+
+\end{comment}
+
+\lstset{
+        language=java,
+         basicstyle=\footnotesize\ttfamily,     % Standardskrift
+         %numbers=left,                          % Place of linenumber
+         numberstyle=\ttfamily,                 % Stil der Zeilennummern
+         stepnumber=1,                          % Abstand zwischen den Zeilennummern
+         numbersep=8pt,                         % Abstand der Nummern zum Text
+         tabsize=4,                             % Groesse von Tabs
+         extendedchars=true,                    %
+         breaklines=true,                       % Zeilen werden Umgebrochen
+         commentstyle=\color{mygreen},
+         keywordstyle=\color{blue},
+            frame=b,
+        commentstyle=\color{dkgreen},
+%        keywordstyle=[1]\textbf,               % Stil der Keywords
+%         keywordstyle=[2]\textbf,              %
+ %       keywordstyle=[3]\textbf,               %
+ %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+         stringstyle=\color{black}\ttfamily,    % Farbe der String
+         showspaces=false,                      % Leerzeichen anzeigen ?
+         showtabs=false,                        % Tabs anzeigen ?
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=5pt,
+         framexbottommargin=4pt,
+         %backgroundcolor=\color{lightgray},
+         showstringspaces=false,                 % Leerzeichen in Strings anzeigen? ¨
+         frame = single,
+         captionpos=b
+ }
 
 \bibliography{Bibliography.bib}
 
