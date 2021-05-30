@@ -140,3 +140,32 @@ til listen, linje 111, og om der bliver fjernet fra listen, linje 118. Hvis der
 bliver tilføjet til listen, tilføjes det nye element automatisk til det
 \texttt{AnchorPane} som methoden har taget som argument. Hvis der fjernes fra listen,
 fjernes dette element fra dette \texttt{AnchorPane}.
+
+\subsubsection{GUI}%
+\label{ssub:gui}
+
+Systemets GUI eller graphical user interface er defineret i \texttt{.fxml}
+filer. Disse sætter rammerne for hvad der vises på skærmen. Disse kan også
+omtales som View i Model-View-Controller-modellen. Viewet kalder
+funktioner i den controller der hører til viewet. Controlleren står for forsyne
+viewet med data, dette gøres fx med \texttt{ObservableList} som tidligere nævnt.
+
+En controller kan også på starttidpunktet for et view programmatisk indsætte
+elementer i viewet. 
+
+\paragraph{Menu}
+
+\texttt{Menu.fxml} fungerer som en form for vindue-i-vinduet. Dette er da de
+fleste views bliver vist inde i et \texttt{AnchorPane} i \texttt{
+Menu}. Dette bevirket at man altid har adgang til søgemenuen og adgang til de
+andre funktioner ens brugerniveau tilbyder. 
+
+Dette ses fx her:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/menu.png}
+    \caption{Menu, med et vindue inden i}
+\end{figure}
+
+her ses det at man kan godkende en krediteringer i mens der stadig er adgang til
+hovedmenuen og søgefeltet.
