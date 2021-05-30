@@ -11,7 +11,9 @@ stillet, sammenholdt med erfaringerne fra analysen.
 %i denne sektion beskrives vores tre-lags arkitektur.
 %Lokalisering af ændringer
 
-Kravet om en trelagsarkitektur, som er sat af SDU er i FURPS+ analysen placeret som en "Design constraint", da dette stiller et krav til designet af systemets arkitektur. 
+Kravet om en trelagsarkitektur, som er sat af SDU er i FURPS+ analysen placeret
+som en "Design constraint", da dette stiller et krav til designet af systemets
+arkitektur. 
 
 %Hvordan kan lagene separeres? 
 
@@ -115,7 +117,13 @@ separeres med interfaces, således at de skilles fra resten af systemet. Disse
 interfaces sørger for at der er en pålidelig kontaktflade med resten af
 programmet.
 
-I analyse klassediagrammet på figur \ref{fig:AnalyseKlasseDiagramV3} er klassen uhensigtsmæssig kompleks. Den er svær at se sig ud af og har alt for mange ansvarsområder. Denne klasse kunne deles op i flere klasser, der hver knytter sig til at arbejde, (manage) en type af kreditering. Derved står ApplicationManager for at have styr på klasserne, og de yderligere klasser (managers), står for at have styr på de specifikke typer af krediteringer/dataobjekter. 
+I analyse klassediagrammet på figur \ref{fig:AnalyseKlasseDiagramV3} er klassen
+uhensigtsmæssig kompleks. Den er svær at se sig ud af og har alt for mange
+ansvarsområder. Denne klasse kunne deles op i flere klasser, der hver knytter
+sig til at arbejde, (manage) en type af kreditering. Derved står
+ApplicationManager for at have styr på klasserne, og de yderligere klasser
+(managers), står for at have styr på de specifikke typer af
+krediteringer/dataobjekter. 
 
 Som det ses i pakkediagrammet på figur \ref{fig:PackageDiagram} 
 eksisterer der en \texttt{services} pakke. Denne pakke tilbyder services for
@@ -141,7 +149,21 @@ og de operationer der tilbydes på den givne data.
     \caption{Interface mellem service og præsentationslaget}
 \end{figure}
 
-Yderligere valgte gruppen et design, der frakobler instantieringen af objekter fra DatabaseLoaderen, ved at lave en pakke/system der hedder objectMapping. Når en burger vælger at søge fra GUI kaldes en funktion search i applicationManager. \texttt{ApplicationManager} vil så sørge for at der bliver søgt på alle typer af objekter. Det vil sige den først f.eks. vil kalde PersonManager som vil søge efter krediteringer af typen Person. I første iteration blev disse person objekter instantieret direkte på DatabaseLoaderen. Men da objektKlasserne lå i domænelaget overholdte dette ikke  tre-lags-modllen, og samtidig ville det også skabe problemer, hvis vi i fremtiden ville tilføje flere variabler til et objekt da dette er tæt koblet. I stedet valgte gruppen at afkolbe denne instantiering af objekter. Det bringer os tilbage til objectMapping. Designet blev sådan, at når der søges, returnerer DatabaseLoader blot et ResultSet fra databasen, og så står objectMapping så for at iterere over dette ResultSet og instantiere objekter derfra. Derved ville man blot skulle ændre én klasse inde i objectMapping for at sørge for, nye variabler bliver medtaget.
+Yderligere valgte gruppen et design, der frakobler instantieringen af objekter
+fra DatabaseLoaderen, ved at lave en pakke/system der hedder objectMapping. Når
+en burger vælger at søge fra GUI kaldes en funktion search i applicationManager.
+\texttt{ApplicationManager} vil så sørge for at der bliver søgt på alle typer af
+objekter. Det vil sige den først f.eks. vil kalde PersonManager som vil søge
+efter krediteringer af typen Person. I første iteration blev disse person
+objekter instantieret direkte på DatabaseLoaderen. Men da objektKlasserne lå i
+domænelaget overholdte dette ikke  tre-lags-modllen, og samtidig ville det også
+skabe problemer, hvis vi i fremtiden ville tilføje flere variabler til et objekt
+da dette er tæt koblet. I stedet valgte gruppen at afkolbe denne instantiering
+af objekter. Det bringer os tilbage til objectMapping. Designet blev sådan, at
+når der søges, returnerer DatabaseLoader blot et ResultSet fra databasen, og så
+står objectMapping så for at iterere over dette ResultSet og instantiere
+objekter derfra. Derved ville man blot skulle ændre én klasse inde i
+objectMapping for at sørge for, nye variabler bliver medtaget.
 
 
 \subsubsection{Pakkediagram} Systemet er delt op i pakker efter præsentations-,
@@ -176,9 +198,16 @@ af to ting:
         pakken i domain.
 \end{itemize}
 
-Gruppen valgte at lave en facade til DatabaseLoader, hvor al kommunikation med DatabaseLoader skal ske igennem. DatabaseLoaderFacade har bl.a. flere overloadede metoder ved navn putInDatabse som tager forskellige typer af objekter, alt efter hvad brugeren vælger at tilføje. Dette gør det nemt at lave funktioner der skal skrive til databasen, da der ikke er 10 forskellige funktioner man skal huske navnene på, men blot kan kalde 'put' metoden med en type af objekt, og så kalder facaden selv den rigtige metode i DatabaseLoader
+Gruppen valgte at lave en facade til DatabaseLoader, hvor al kommunikation med
+DatabaseLoader skal ske igennem. DatabaseLoaderFacade har bl.a. flere
+overloadede metoder ved navn putInDatabse som tager forskellige typer af
+objekter, alt efter hvad brugeren vælger at tilføje. Dette gør det nemt at lave
+funktioner der skal skrive til databasen, da der ikke er 10 forskellige
+funktioner man skal huske navnene på, men blot kan kalde 'put' metoden med en
+type af objekt, og så kalder facaden selv den rigtige metode i DatabaseLoader
 \\
-På baggrund af disse designvalg udviklede gruppen programmets klassediagram som er indsat i bilag \ref{kompletKlassediagram}. 
+På baggrund af disse designvalg udviklede gruppen programmets klassediagram som
+er indsat i bilag \ref{kompletKlassediagram}. 
 
 \subsubsection{Systemsekvensdiagrammer}%
 \label{ssub:systemsekvensdiagrammer}
