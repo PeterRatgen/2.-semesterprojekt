@@ -50,10 +50,10 @@ public ObservableList<IPerson> getPersons(String searchString) {
 \end{lstlisting}
 
 \texttt{DatabaseLoaderFacade}, kalder \texttt{DatabaseLoader} som queryer
-databasen. Funktionen \texttt{searchQueryToPersonList} har
+databasen. Funktionen \newline\texttt{searchQueryToPersonList} har
 \texttt{package-private}(som er standard) indkapsling. Således at dens
 funktionalitet kan anvendes af \texttt{DatabaseLoaderFacade}, men ikke kan
-tilgås udenfor pakken. 
+tilgås udenfor pakken.
 
 \begin{lstlisting}[basicstyle=\ttfamily\footnotesize, firstnumber=42,
 caption=Query af databasen for personer (\texttt{DatabaseLoader.java})]
