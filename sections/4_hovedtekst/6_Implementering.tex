@@ -96,37 +96,36 @@ denne liste har en listener på ændringer i data indeholdt i listen, notificere
 ser det opdaterede data.  Tilføjelsen af en listener til en observableList kan
 ske på følgende som det ses på figur \textbf{RET REFERENCE}
 
-\begin{lstlisting}[caption = set]
-    private void setContent(AnchorPane listToApprove, ObservableList
-    <? extends ICredit> creditList){
-        int offset = 20;
-        for (ICredit credit : creditList){
-            if (!credit.isApproved()) {
-                addItem(listToApprove, credit, offset);
-                offset += 30;
-            }
-        }
+JavaFX library'et indeholer en typer af lister kaldet ObservableLists. Observable lister fungerer som de flereste andre lister, og kan instantieres som bl.a. en observable ArrayList. Det specielle ved ObservableLister er at man kan tilføje "Listeners". Listeners er som navnet angiver, en enhed der kan "lytte" efter ændringer på objekterne som listerne indeholder. Lad os sige brugeren får præsenteret en liste af personer. Dette er viewet i modellen. Her vælger brugeren så at godkende en person. Den handling registrerer en controller (Controller i mønsteret) og i programmet kalder controlleren en funktion i applicatioManager, der ænder noget data nede i databasen (Model i mønsteret). Da denne liste har en listener på ændringer i data indeholdt i listen, notificerer ændringen af data denne listener, som får viewet til at opdatere, så brugeren nu ser det opdaterede data.
+Tilføjelsen af en listener til en observableList kan implementeres som det ses på Listing \ref{lst:setContent}.
 
-        creditList.addListener((ListChangeListener<ICredit>) change -> {
-            int offset1 = 20;
-            while (change.next()) {
-                if (change.wasAdded()) {
-                    for (ICredit credit : change.getAddedSubList()){
-                        if (!credit.isApproved()){
-                            addItem(listToApprove, credit, offset1);
-                            offset1 += 30;
-                        }
-                    }
-                } else if (change.wasRemoved()) {
-                    for (ICredit credit : change.getRemoved()){
-                        System.out.println("Removed credit: " + credit);
-                        removeItem(listToApprove, credit);
+\begin{lstlisting}[language=Java, label=lst:setContent, caption = setContent]
+private void setContent(AnchorPane listToApprove, ObservableList<? extends ICredit> creditList){
+    int offset = 20;
+    for (ICredit credit : creditList){
+        if (!credit.isApproved()) {
+            addItem(listToApprove, credit, offset);
+            offset += 30;
+        }
+    }
+    creditList.addListener((ListChangeListener<ICredit>) change -> {
+        int offset1 = 20;
+        while (change.next()) {
+            if (change.wasAdded()) {
+                for (ICredit credit : change.getAddedSubList()){
+                    if (!credit.isApproved()){
+                        addItem(listToApprove, credit, offset1);
+                        offset1 += 30;
                     }
                 }
+            } else if (change.wasRemoved()) {
+                for (ICredit credit : change.getRemoved()){
+                    System.out.println("Removed credit: " + credit);
+                    removeItem(listToApprove, credit);
+                }
             }
-        });
+        }
+    });
 \end{lstlisting}
 
-
-
-
+Metoden setConten tager et AnchorPane og en ObservableList som argumenter. Først tjekkes de credtis som listen indeholde igennem, og hvis de ikke er godkendt/approved bliver de tilføjet til det medfølgende AnchorPane, som skal indeholde de krediteringer som ikke er godkendt. Når der er itereret over alle krediteringer i listen, bliver der tilføjet en listener til listen som starter ved linje 9 i listing \ref{lst:setContent}. Listeneren lytter efter to ting. Om der bliver tilføjet til listen, linje 12, og om der bliver fjernet fra listen, linje 19. Hvis der bliver tilføjet til listen, tilføjes det nye element automatisk til det AnchorPane som method har taget som argument. Hvis der fjernes fra listen, fjernes dette element fra dette AnchorPane.
